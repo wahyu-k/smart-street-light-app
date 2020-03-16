@@ -34,6 +34,7 @@ target 'smart_street_light_app' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
+
   target 'smart_street_light_appTests' do
     inherit! :search_paths
     # Pods for testing
