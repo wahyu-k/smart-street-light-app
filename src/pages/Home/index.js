@@ -14,7 +14,7 @@ const Home = () => {
                 <LastUpdateMod />
                 <FlowchartOrg />
                 <PowerMod />
-                <DataVoltageOrg />
+                <DataVoltageOrg v1="3.33"/>
                 <DataClimateOrg />
                 <DataLocationOrg />
             </View>
