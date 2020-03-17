@@ -36,7 +36,7 @@ export default StyleSheet.create({
     },
     arrowWrap: {
         justifyContent: "center",
-        margin: 4,
+        margin: 2,
     },
     arrowImg: {
         width: 30,
