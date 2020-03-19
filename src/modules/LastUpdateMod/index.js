@@ -2,11 +2,11 @@ import React from 'react'
 import { Text, View } from 'react-native'
 import styles from '../../styles/styles.js'
 
-const LastUpdateMod = () => {
+const LastUpdateMod = (props) => {
     return (
         <View style={{ flexDirection: "row", margin: 16 }}>
             <Text>Last Update:</Text>
-            <Text style={styles.lastUpdateText}>XXXX-XX-XX XX:XX:XX</Text>
+            <Text style={styles.lastUpdateText}>{props.date}</Text>
         </View>
     )
 }

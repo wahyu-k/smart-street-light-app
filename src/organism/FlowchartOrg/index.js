@@ -1,21 +1,19 @@
-import React from 'react'
-import { View } from 'react-native'
-import SolarPanelMod from '../../modules/SolarPanelMod';
-import LoadMod from '../../modules/LoadMod';
-import BatteryMod from '../../modules/BatteryMod';
+import React, {Component} from 'react';
+import {View} from 'react-native';
 import ArrowAtom from '../../atoms/ArrowAtom';
-import styles from '../../styles/styles.js'
+import BatteryMod from '../../modules/BatteryMod';
+import LoadMod from '../../modules/LoadMod';
+import SolarPanelMod from '../../modules/SolarPanelMod';
+import styles from '../../styles/styles.js';
 
-const FlowchartOrg = () => {
-    return (
-        <View style={styles.flowchartOrgWrap}>
-            <SolarPanelMod />
-            <ArrowAtom />
-            <BatteryMod />
-            <ArrowAtom />
-            <LoadMod />
-        </View>
-    )
-}
-
-export default FlowchartOrg;
+export default FlowchartOrg = props => {
+  return (
+    <View style={styles.flowchartOrgWrap}>
+      <SolarPanelMod c={props.chg}/>
+      <ArrowAtom />
+      <BatteryMod />
+      <ArrowAtom />
+      <LoadMod c={props.chg}/>
+    </View>
+  );
+};
