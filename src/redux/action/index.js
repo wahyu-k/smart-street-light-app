@@ -6,7 +6,6 @@ export const loadData = devId => {
     axios
       .get('http://iot.arduinosolo.com/json_data.php?device_id=' + devId)
       .then(function(response) {
-        // console.log(response);
         dispatch({type: 'LOAD_DATA_SUCCESS', payload: response.data});
       })
       .catch(function(error) {

@@ -10,9 +10,10 @@ import FlowchartOrg from '../../organism/FlowchartOrg';
 import * as action from '../../redux/action';
 
 class Home extends Component {
+  devId = 1;
   constructor(props) {
     super(props);
-    this.props.loadData(1);
+    this.props.loadData(this.devId);
   }
   render() {
     return (
@@ -21,7 +22,7 @@ class Home extends Component {
         refreshControl={
           <RefreshControl
             refreshing={this.props.isLoading}
-            onRefresh={() => this.props.loadData(1)}
+            onRefresh={() => this.props.loadData(this.devId)}
           />
         }>
         <View style={{flex: 1}}>
@@ -55,7 +56,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    loadData: () => dispatch(action.loadData(1)),
+    loadData: devId => dispatch(action.loadData(devId)),
   };
 }
 
