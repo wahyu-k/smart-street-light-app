@@ -1,19 +1,28 @@
-import React from 'react';
-import { View } from 'react-native';
+import React, {Component} from 'react';
+import {View} from 'react-native';
+import {connect} from 'react-redux';
 import DataTitleMod from '../../modules/DataTitleMod';
 import DataValueMod from '../../modules/DataValueMod';
 import styles from '../../styles/styles.js';
 
-const DataLocationOrg = () => {
+class DataLocationOrg extends Component {
+  render() {
     return (
-        <View style={styles.dataWrapOrg}>
-            <DataTitleMod title="Location" src="location-searching" />
-            <DataValueMod title="Device Id: " value="XX.XX" />
-            <DataValueMod title="Device Name: " value="XXXXXX" />
-            <DataValueMod title="Latitude: " value="XX.XXXX" />
-            <DataValueMod title="Longitude: " value="XX.XXXX" />
-        </View>
-    )
+      <View style={styles.dataWrapOrg}>
+        <DataTitleMod title="Location" src="location-city" />
+        <DataValueMod title="Device Id: " value={this.props.data.device_id} />
+        <DataValueMod title="Device Name: " value={this.props.data.device_id} />
+        <DataValueMod title="Latitude: " value={this.props.data.lat} />
+        <DataValueMod title="Longitude: " value={this.props.data.lng} />
+      </View>
+    );
+  }
 }
 
-export default DataLocationOrg;
+function mapStateToProps(state) {
+  return {
+    data: state.data,
+  };
+}
+
+export default connect(mapStateToProps)(DataLocationOrg);

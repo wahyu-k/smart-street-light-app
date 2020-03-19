@@ -4,22 +4,14 @@ import React from 'react';
 import {StatusBar} from 'react-native';
 import 'react-native-gesture-handler';
 import Icons from 'react-native-vector-icons/FontAwesome';
+import {Provider} from 'react-redux';
 import HeaderMod from './src/modules/HeaderMod';
 import Home from './src/pages/Home';
 import Info from './src/pages/Info';
 import Maps from './src/pages/Maps';
-import {createStore} from 'redux';
-import {Provider} from 'react-redux';
+import store from './src/redux/store';
 
 const Tab = createBottomTabNavigator();
-
-function reducer(state, action) {
-  return {
-    data: '112',
-  };
-}
-
-const store = createStore(reducer);
 
 export default MainApp = () => {
   return (
@@ -61,4 +53,3 @@ export default MainApp = () => {
     </Provider>
   );
 };
-// export default HttpExample;

@@ -1,14 +1,23 @@
-import React from 'react'
-import { Text, View } from 'react-native'
-import styles from '../../styles/styles.js'
+import React, {Component} from 'react';
+import {Text, View} from 'react-native';
+import {connect} from 'react-redux';
+import styles from '../../styles/styles.js';
 
-const LastUpdateMod = (props) => {
+class LastUpdateMod extends Component {
+  render() {
     return (
-        <View style={{ flexDirection: "row", margin: 16 }}>
-            <Text>Last Update:</Text>
-            <Text style={styles.lastUpdateText}>{props.date}</Text>
-        </View>
-    )
+      <View style={{flexDirection: 'row', margin: 16}}>
+        <Text>Last Update:</Text>
+        <Text style={styles.lastUpdateText}>{this.props.data.date}</Text>
+      </View>
+    );
+  }
 }
 
-export default LastUpdateMod;
+function mapStateToProps(state) {
+  return {
+    data: state.data,
+  };
+}
+
+export default connect(mapStateToProps)(LastUpdateMod);

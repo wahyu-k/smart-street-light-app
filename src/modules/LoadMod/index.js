@@ -7,14 +7,14 @@ const LoadMod = props => {
     <View style={styles.flowchartWrap}>
       <Image
         source={
-          props.chg
+          props.chgLogic
             ? require('../../assets/img/loadOff.png')
             : require('../../assets/img/loadOn.png')
         }
         style={styles.flowchartImg}
       />
       <View style={{flexDirection: 'row', paddingTop: 6}}>
-        <Text style={styles.ampereText}>XX.XX</Text>
+        <Text style={styles.ampereText}>{props.c}</Text>
         <Text style={styles.ampereText}> A</Text>
       </View>
       <Text>Discharge</Text>

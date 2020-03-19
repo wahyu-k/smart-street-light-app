@@ -1,15 +1,25 @@
-import React from 'react'
-import { View, Text } from 'react-native'
-import styles from '../../styles/styles.js'
+import React, {Component} from 'react';
+import {Text, View} from 'react-native';
+import {connect} from 'react-redux';
+import styles from '../../styles/styles.js';
 
-const PowerMod = (props) => {
+class PowerMod extends Component {
+  render() {
+    this.powerEq = Math.abs(this.props.data.c * this.props.data.v_tot).toFixed(2);
     return (
-        <View style={styles.powerWrap}>
-            <Text style={styles.powerText}>Power: </Text>
-            <Text style={styles.powerText}>{props.power}</Text>
-            <Text style={styles.powerText}> W</Text>
-        </View>
-    )
+      <View style={styles.powerWrap}>
+        <Text style={styles.powerText}>Power: </Text>
+        <Text style={styles.powerText}>{this.powerEq}</Text>
+        <Text style={styles.powerText}> W</Text>
+      </View>
+    );
+  }
 }
 
-export default PowerMod;
+function mapStateToProps(state) {
+  return {
+    data: state.data,
+  };
+}
+
+export default connect(mapStateToProps)(PowerMod);
