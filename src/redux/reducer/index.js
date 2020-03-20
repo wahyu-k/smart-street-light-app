@@ -22,7 +22,11 @@ export default reducer = (state = initialState, action) => {
     case 'LOAD_DATA_START':
       return Object.assign({}, state, {isLoading: true});
     case 'LOAD_DATA_SUCCESS':
-      return Object.assign({}, state, {data: action.payload, isLoading: false});
+      return Object.assign({}, state, {
+        data: action.payload,
+        isLoading: false,
+        alldata: action.alldata,
+      });
     case 'LOAD_DATA_FAILURE':
       return Object.assign({}, state, {
         error: action.payload,
