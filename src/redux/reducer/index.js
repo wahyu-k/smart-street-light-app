@@ -1,6 +1,6 @@
 let initialState = {
   data: {
-    device_id: '0',
+    device_id: '1',
     id: '0',
     v1: '0',
     v2: '0',
@@ -13,6 +13,24 @@ let initialState = {
     lat: '0',
     lng: '0',
   },
+  alldata: [
+    {
+      index: '1',
+      device_id: '0',
+      id: '0',
+      v1: '0',
+      v2: '0',
+      v3: '0',
+      v4: '0',
+      v_tot: '0',
+      c: '0',
+      t: '0',
+      date: '0',
+      lat: '0',
+      lng: '0',
+      name: '0',
+    },
+  ],
   isLoading: false,
   error: null,
 };

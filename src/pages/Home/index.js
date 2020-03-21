@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-community/async-storage';
 import React, {Component} from 'react';
 import {RefreshControl, ScrollView, View} from 'react-native';
 import {connect} from 'react-redux';
@@ -11,11 +12,32 @@ import * as action from '../../redux/action';
 
 class Home extends Component {
   userId = 1;
-  data = 1;
+  deviceId = 0;
   constructor(props) {
     super(props);
-    this.props.loadData(this.userId, this.data);
+    this.getStoredData('deviceId');
+    // console.log(this.deviceId);
+    // this.props.loadData(this.userId, this.deviceId);
   }
+
+  storeData = async (key, value) => {
+    try {
+      await AsyncStorage.setItem(key, value);
+    } catch (e) {}
+  };
+
+  getStoredData = async key => {
+    try {
+      const value = await AsyncStorage.getItem(key);
+      if (value !== null) {
+        this.deviceId = value;
+        this.props.loadData(this.userId, this.deviceId);
+        this.forceUpdate();
+        console.log('deviceId:' + this.deviceId);
+      }
+    } catch (e) {}
+  };
+
   render() {
     return (
       <ScrollView
@@ -23,7 +45,12 @@ class Home extends Component {
         refreshControl={
           <RefreshControl
             refreshing={this.props.isLoading}
-            onRefresh={() => this.props.loadData(this.userId, this.data)}
+            onRefresh={() => {
+              this.getStoredData('deviceId');
+              // console.log(this.deviceId);
+              // this.props.loadData(this.userId, this.deviceId);
+              // this.forceUpdate();
+            }}
           />
         }>
         <View style={{flex: 1}}>

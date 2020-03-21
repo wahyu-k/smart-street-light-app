@@ -3,7 +3,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import React, {Component} from 'react';
-import {Button, StatusBar, Text, View} from 'react-native';
+import {Button, StatusBar, Text, View, BackHandler} from 'react-native';
 import 'react-native-gesture-handler';
 import Icons from 'react-native-vector-icons/FontAwesome';
 import {Provider} from 'react-redux';
@@ -29,7 +29,6 @@ class Splash extends Component {
       const value = await AsyncStorage.getItem(key);
       if (value !== null) {
         this.setState({userId: value});
-        // console.log('ini');
         if (value !== '0') {
           this.props.navigation.navigate('Home');
         } else {
@@ -69,8 +68,10 @@ export default class MainApp extends Component {
       await AsyncStorage.setItem(key, value);
     } catch (e) {}
   };
-
   render() {
+    BackHandler.addEventListener('hardwareBackPress', function() {
+      return true;
+    });
     return (
       <Provider store={store}>
         <NavigationContainer>
@@ -82,6 +83,7 @@ export default class MainApp extends Component {
                 animationTypeForReplace: 'pop',
                 title: 'BATEX Energy',
                 headerTitleAlign: 'center',
+                headerLeft: null,
                 headerStyle: {
                   backgroundColor: '#b71c1c',
                 },
@@ -90,10 +92,8 @@ export default class MainApp extends Component {
                     onPress={() => {
                       this.storeData('userId', '0');
                       this.getStoredData('userId');
-                      // this.props.
                     }}
-                    title="Info"
-                    // color="#fff"
+                    title="Out"
                   />
                 ),
                 headerTintColor: '#fff',
@@ -154,7 +154,7 @@ class TheMainApp extends Component {
             activeTintColor: '#b71c1c',
             inactiveTintColor: 'gray',
           }}>
-          <Tab.Screen name="Home" component={Home} />
+          <Tab.Screen name="Home" component={Home}/>
           <Tab.Screen name="Maps" component={Maps} />
           <Tab.Screen name="Info" component={Info} />
         </Tab.Navigator>

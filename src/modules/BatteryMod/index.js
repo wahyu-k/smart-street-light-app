@@ -18,7 +18,7 @@ class BatteryMod extends Component {
             position: 'absolute',
             borderRadius: 6,
             height: '100%',
-            width: (this.percentage / 100) * 131,
+            width: isNaN(this.percentage) ? 0 : (this.percentage / 100) * 131,
             alignSelf: 'flex-start',
           }}></View>
         <View style={styles.flexToRow}>

@@ -13,7 +13,7 @@
     "@react-native-community/async-storage": "^1.8.1",
     "@react-native-community/masked-view": "^0.1.7",
     "@react-navigation/bottom-tabs": "^5.2.0",
-    "@react-navigation/native": "^5.0.10",
+    "@react-navigation/native": "^5.1.1",
     "@react-navigation/stack": "^5.2.0",
     "axios": "^0.19.2",
     "core-js": "^3.6.4",
@@ -26,6 +26,7 @@
     "react-native-safe-area-context": "^0.7.3",
     "react-native-screens": "^2.4.0",
     "react-native-vector-icons": "^6.6.0",
+    "react-navigation": "^4.3.2",
     "react-redux": "^7.2.0",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0"
