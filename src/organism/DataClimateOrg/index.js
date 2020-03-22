@@ -10,7 +10,11 @@ class DataClimateOrg extends Component {
     return (
       <View style={styles.dataWrapOrg}>
         <DataTitleMod title="Climate" src="cloud" />
-        <DataValueMod title="Sensor 1: " value={this.props.data.t} unit=" °C" />
+        <DataValueMod
+          title="Sensor 1: "
+          value={this.props.allData[this.props.index].t}
+          unit=" °C"
+        />
       </View>
     );
   }
@@ -18,7 +22,8 @@ class DataClimateOrg extends Component {
 
 function mapStateToProps(state) {
   return {
-    data: state.data,
+    allData: state.allData,
+    index: state.index,
   };
 }
 

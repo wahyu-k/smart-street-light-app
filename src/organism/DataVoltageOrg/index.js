@@ -10,13 +10,29 @@ class DataVoltageOrg extends Component {
     return (
       <View style={styles.dataWrapOrg}>
         <DataTitleMod title="Voltage" src="local-gas-station" />
-        <DataValueMod title="Cell 1: " value={this.props.data.v1} unit=" V" />
-        <DataValueMod title="Cell 2: " value={this.props.data.v2} unit=" V" />
-        <DataValueMod title="Cell 3: " value={this.props.data.v3} unit=" V" />
-        <DataValueMod title="Cell 4: " value={this.props.data.v4} unit=" V" />
+        <DataValueMod
+          title="Cell 1: "
+          value={this.props.allData[this.props.index].v1}
+          unit=" V"
+        />
+        <DataValueMod
+          title="Cell 2: "
+          value={this.props.allData[this.props.index].v2}
+          unit=" V"
+        />
+        <DataValueMod
+          title="Cell 3: "
+          value={this.props.allData[this.props.index].v3}
+          unit=" V"
+        />
+        <DataValueMod
+          title="Cell 4: "
+          value={this.props.allData[this.props.index].v4}
+          unit=" V"
+        />
         <DataValueMod
           title="Total : "
-          value={this.props.data.v_tot}
+          value={this.props.allData[this.props.index].v_tot}
           unit=" V"
         />
       </View>
@@ -26,7 +42,8 @@ class DataVoltageOrg extends Component {
 
 function mapStateToProps(state) {
   return {
-    data: state.data,
+    allData: state.allData,
+    index: state.index,
   };
 }
 

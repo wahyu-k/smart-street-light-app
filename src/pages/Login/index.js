@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 import React, {Component} from 'react';
 import {
@@ -8,11 +9,11 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  ToastAndroid,
   TouchableOpacity,
   View,
 } from 'react-native';
 import {Icon} from 'react-native-elements';
-import AsyncStorage from '@react-native-community/async-storage';
 
 class Login extends Component {
   state = {
@@ -115,10 +116,12 @@ class Login extends Component {
               }}
               onPress={() => {
                 Keyboard.dismiss();
-                this.storeData('userId', '1');
+                this.storeData('userId', '2');
+                this.getStoredData('userId');
+                this.forceUpdate();
               }}>
-              <Icon name="lock-open" color="white" />
-              <Text style={{color: 'white', marginLeft: 8}}>COBA</Text>
+              <Icon name="tv" color="white" />
+              <Text style={{color: 'white', marginLeft: 8}}>Demo</Text>
             </TouchableOpacity>
           </View>
           <View
@@ -146,17 +149,17 @@ class Login extends Component {
         response.data.userId === undefined
           ? this.setState({userId: '0'})
           : this.setState({userId: response.data.userId});
-        console.log('respose' + this.state.userId);
         this.setState({animating: false});
+        console.log(this.state.userId);
         if (this.state.userId !== '0') {
           this.storeData('userId', this.state.userId);
+          this.storeData('index', '0');
         } else {
+          ToastAndroid.show('Wrong username or password!', ToastAndroid.SHORT);
           this.storeData('userId', '0');
         }
       })
-      .catch(function(error) {
-        console.log(error);
-      });
+      .catch(function(error) {});
   };
 }
 

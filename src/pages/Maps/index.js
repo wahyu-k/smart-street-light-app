@@ -32,7 +32,6 @@ class Maps extends Component {
       const value = await AsyncStorage.getItem(key);
       if (value !== null) {
         this.userId = value;
-        console.log('userid:' + this.userId);
       }
     } catch (e) {}
   };
@@ -43,22 +42,22 @@ class Maps extends Component {
     // console.log(this.userId);
 
     this.state = {
-      markers: this.props.alldata,
+      markers: this.props.allData,
     };
     return (
       <View style={styles.container}>
         <MapView
           style={styles.map}
           region={{
-            latitude: parseFloat(this.props.alldata[this.data].lat),
-            longitude: parseFloat(this.props.alldata[this.data].lng),
+            latitude: parseFloat(this.props.allData[this.data].lat),
+            longitude: parseFloat(this.props.allData[this.data].lng),
             latitudeDelta: 0.2,
             longitudeDelta: 0.2,
           }}>
           {this.state.markers.map(marker => (
             <Marker
-              key={marker.id}
-              title={marker.device_id}
+              key={marker.index}
+              title={marker.index.toString()}
               description={marker.name}
               coordinate={{
                 latitude: parseFloat(marker.lat),
@@ -82,12 +81,12 @@ class Maps extends Component {
             }}>
             {this.state.markers.map(marker => (
               <TouchableOpacity
-                key={marker.device_id}
+                key={marker.index}
                 activeOpacity={0.8}
                 onPress={() => {
-                  this.data = marker.device_id - 1;
-                  console.log('deviceidmaps' + (marker.device_id - 1));
-                  this.storeData('deviceId', (marker.device_id - 1).toString());
+                  this.data = marker.index;
+                  // this.storeData('deviceId', this.data.toString());
+                  this.storeData('index', this.data.toString());
                   this.forceUpdate();
                   // this.props.navigation.navigate('Home');
                 }}>
@@ -144,7 +143,7 @@ class Maps extends Component {
 function mapStateToProps(state) {
   return {
     data: state.data,
-    alldata: state.alldata,
+    allData: state.allData,
   };
 }
 

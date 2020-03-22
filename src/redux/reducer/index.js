@@ -13,9 +13,9 @@ let initialState = {
     lat: '0',
     lng: '0',
   },
-  alldata: [
+  allData: [
     {
-      index: '1',
+      index: '0',
       device_id: '0',
       id: '0',
       v1: '0',
@@ -31,6 +31,7 @@ let initialState = {
       name: '0',
     },
   ],
+  index: 0,
   isLoading: false,
   error: null,
 };
@@ -43,13 +44,16 @@ export default reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         data: action.payload,
         isLoading: false,
-        alldata: action.alldata,
+        allData: action.allData,
+        index: action.index,
       });
     case 'LOAD_DATA_FAILURE':
       return Object.assign({}, state, {
         error: action.payload,
         isLoading: false,
       });
+    case 'SET_INDEX':
+      return {...state, index: action.index};
     default:
       return state;
   }

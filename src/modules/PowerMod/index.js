@@ -5,7 +5,10 @@ import styles from '../../styles/styles.js';
 
 class PowerMod extends Component {
   render() {
-    this.powerEq = Math.abs(this.props.data.c * this.props.data.v_tot).toFixed(2);
+    this.powerEq = Math.abs(
+      this.props.allData[this.props.index].c *
+        this.props.allData[this.props.index].v_tot,
+    ).toFixed(2);
     return (
       <View style={styles.powerWrap}>
         <Text style={styles.powerText}>Power: </Text>
@@ -18,7 +21,8 @@ class PowerMod extends Component {
 
 function mapStateToProps(state) {
   return {
-    data: state.data,
+    allData: state.allData,
+    index: state.index,
   };
 }
 

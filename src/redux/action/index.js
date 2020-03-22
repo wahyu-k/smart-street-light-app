@@ -9,7 +9,8 @@ export const loadData = (userId, data) => {
         dispatch({
           type: 'LOAD_DATA_SUCCESS',
           payload: response.data[data],
-          alldata: response.data,
+          allData: response.data,
+          index: data,
         });
       })
       .catch(function(error) {

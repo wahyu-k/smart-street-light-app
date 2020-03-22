@@ -16,15 +16,22 @@ class DataLocationOrg extends Component {
     return (
       <View style={styles.dataWrapOrg}>
         <DataTitleMod title="Location" src="location-city" />
-        <DataValueMod title="Device Id: " value={this.props.data.device_id} />
+        <DataValueMod
+          title="Device Id: "
+          value={this.props.allData[this.props.index].device_id}
+        />
         <DataValueMod
           title="Device Name: "
-          value={
-            this.props.alldata[parseInt(this.props.data.device_id) - 1].name
-          }
+          value={this.props.allData[this.props.index].name}
         />
-        <DataValueMod title="Latitude: " value={this.props.data.lat} />
-        <DataValueMod title="Longitude: " value={this.props.data.lng} />
+        <DataValueMod
+          title="Latitude: "
+          value={this.props.allData[this.props.index].lat}
+        />
+        <DataValueMod
+          title="Longitude: "
+          value={this.props.allData[this.props.index].lng}
+        />
       </View>
     );
   }
@@ -33,7 +40,8 @@ class DataLocationOrg extends Component {
 function mapStateToProps(state) {
   return {
     data: state.data,
-    alldata: state.alldata,
+    allData: state.allData,
+    index: state.index,
   };
 }
 

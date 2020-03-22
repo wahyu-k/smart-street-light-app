@@ -3,9 +3,19 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import React, {Component} from 'react';
-import {Button, StatusBar, Text, View, BackHandler} from 'react-native';
+import {
+  BackHandler,
+  StatusBar,
+  Text,
+  ToastAndroid,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import 'react-native-gesture-handler';
-import Icons from 'react-native-vector-icons/FontAwesome';
+import {
+  default as Icon,
+  default as Icons,
+} from 'react-native-vector-icons/FontAwesome';
 import {Provider} from 'react-redux';
 import Home from './src/pages/Home';
 import Info from './src/pages/Info';
@@ -18,27 +28,49 @@ const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 class Splash extends Component {
-  state = {
-    userId: '0',
-  };
+  // componentDidMount() {
+  //   this.didFocusListener = this.props.navigation.addListener(
+  //     'didFocus',
+  //     () => {
+  //       console.log('did focus');
+  //     },
+  //   );
+  // }
+
+  // componentWillUnmount() {
+  //   this.didFocusListener.remove();
+  // }
+
   constructor(props) {
     super(props);
+    this.getStoredData('userId');
   }
+  storeData = async (key, value) => {
+    try {
+      await AsyncStorage.setItem(key, value);
+    } catch (e) {}
+  };
   getStoredData = async key => {
     try {
       const value = await AsyncStorage.getItem(key);
       if (value !== null) {
-        this.setState({userId: value});
+        // console.log('t' + value);
         if (value !== '0') {
           this.props.navigation.navigate('Home');
+          this.forceUpdate();
         } else {
           this.props.navigation.navigate('Login');
+          this.forceUpdate();
         }
+      } else {
+        this.storeData('userId', '0');
+        this.getStoredData('userId');
       }
     } catch (e) {}
   };
   render() {
     this.getStoredData('userId');
+    // console.log('ini');
     return (
       <View>
         <Text>Loading...</Text>
@@ -88,13 +120,32 @@ export default class MainApp extends Component {
                   backgroundColor: '#b71c1c',
                 },
                 headerRight: () => (
-                  <Button
+                  <TouchableOpacity
+                    style={{
+                      marginRight: 10,
+                      height: 24,
+                      width: 24,
+                      justifyContent: 'center',
+                    }}
                     onPress={() => {
                       this.storeData('userId', '0');
+                      this.storeData('index', '0');
+                      this.getStoredData('userId');
+                      ToastAndroid.show(
+                        'You are logged out!',
+                        ToastAndroid.SHORT,
+                      );
+                    }}>
+                    <Icon name="key" size={24} color="white" />
+                  </TouchableOpacity>
+                  /* <Button
+                    onPress={() => {
+                      this.storeData('userId', '0');
+                      this.storeData('index', '0');
                       this.getStoredData('userId');
                     }}
                     title="Out"
-                  />
+                  /> */
                 ),
                 headerTintColor: '#fff',
                 headerTitleStyle: {
@@ -154,7 +205,7 @@ class TheMainApp extends Component {
             activeTintColor: '#b71c1c',
             inactiveTintColor: 'gray',
           }}>
-          <Tab.Screen name="Home" component={Home}/>
+          <Tab.Screen name="Home" component={Home} />
           <Tab.Screen name="Maps" component={Maps} />
           <Tab.Screen name="Info" component={Info} />
         </Tab.Navigator>

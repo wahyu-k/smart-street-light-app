@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, {Component} from 'react';
-import {RefreshControl, ScrollView, View} from 'react-native';
+import {RefreshControl, ScrollView, View, Text} from 'react-native';
 import {connect} from 'react-redux';
 import LastUpdateMod from '../../modules/LastUpdateMod';
 import PowerMod from '../../modules/PowerMod';
@@ -9,15 +9,29 @@ import DataLocationOrg from '../../organism/DataLocationOrg';
 import DataVoltageOrg from '../../organism/DataVoltageOrg';
 import FlowchartOrg from '../../organism/FlowchartOrg';
 import * as action from '../../redux/action';
+import {useIsFocused} from '@react-navigation/native';
 
 class Home extends Component {
+  // componentDidMount() {
+  //   //Here is the Trick
+  //   const {navigation} = this.props;
+  //   //Adding an event listner om focus
+  //   //So whenever the screen will have focus it will set the state to zero
+  //   this.focusListener = navigation.addListener('didFocus', () => {
+  //     alert('fokus');
+  //   });
+  // }
+  // componentWillUnmount() {
+  //   // Remove the event listener before removing the screen from the stack
+  //   this.focusListener.remove();
+  // }
+
   userId = 1;
-  deviceId = 0;
+  index = 0;
   constructor(props) {
     super(props);
-    this.getStoredData('deviceId');
-    // console.log(this.deviceId);
-    // this.props.loadData(this.userId, this.deviceId);
+    this.getStoredData('index');
+    this.getStoredData('userId');
   }
 
   storeData = async (key, value) => {
@@ -30,10 +44,22 @@ class Home extends Component {
     try {
       const value = await AsyncStorage.getItem(key);
       if (value !== null) {
-        this.deviceId = value;
-        this.props.loadData(this.userId, this.deviceId);
+        switch (key) {
+          case 'index':
+            this.index = value;
+            // this.props.loadData(this.userId, this.index);
+            // this.forceUpdate();
+            break;
+          case 'userId':
+            this.userId = value;
+            // this.props.loadData(this.userId, this.index);
+            // this.forceUpdate();
+            break;
+          default:
+            break;
+        }
+        this.props.loadData(this.userId, this.index);
         this.forceUpdate();
-        console.log('deviceId:' + this.deviceId);
       }
     } catch (e) {}
   };
@@ -46,7 +72,8 @@ class Home extends Component {
           <RefreshControl
             refreshing={this.props.isLoading}
             onRefresh={() => {
-              this.getStoredData('deviceId');
+              this.getStoredData('index');
+              this.getStoredData('userId');
               // console.log(this.deviceId);
               // this.props.loadData(this.userId, this.deviceId);
               // this.forceUpdate();
@@ -79,6 +106,7 @@ function mapStateToProps(state) {
     data: state.data,
     isLoading: state.isLoading,
     error: state.error,
+    index: state.index,
   };
 }
 

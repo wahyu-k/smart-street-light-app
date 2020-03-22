@@ -9,16 +9,22 @@ import styles from '../../styles/styles.js';
 
 class FlowchartOrg extends Component {
   render() {
-    this.chgLogic = this.props.data.c > 0 ? true : false;
+    this.chgLogic = this.props.allData[this.props.index].c > 0 ? true : false;
     return (
       <View style={styles.flowchartOrgWrap}>
-        <SolarPanelMod c={this.chgLogic ? this.props.data.c : '0.00'} />
+        <SolarPanelMod
+          c={this.chgLogic ? this.props.allData[this.props.index].c : '0.00'}
+        />
         <ArrowAtom />
         <BatteryMod />
         <ArrowAtom />
         <LoadMod
           chgLogic={this.chgLogic}
-          c={!this.chgLogic ? Math.abs(this.props.data.c) : '0.00'}
+          c={
+            !this.chgLogic
+              ? Math.abs(this.props.allData[this.props.index].c)
+              : '0.00'
+          }
         />
       </View>
     );
@@ -27,7 +33,8 @@ class FlowchartOrg extends Component {
 
 function mapStateToProps(state) {
   return {
-    data: state.data,
+    allData: state.allData,
+    index: state.index,
   };
 }
 

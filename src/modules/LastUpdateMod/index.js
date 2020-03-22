@@ -8,7 +8,9 @@ class LastUpdateMod extends Component {
     return (
       <View style={{flexDirection: 'row', margin: 16}}>
         <Text>Last Update:</Text>
-        <Text style={styles.lastUpdateText}>{this.props.data.date}</Text>
+        <Text style={styles.lastUpdateText}>
+          {this.props.allData[this.props.index].date}
+        </Text>
       </View>
     );
   }
@@ -16,7 +18,8 @@ class LastUpdateMod extends Component {
 
 function mapStateToProps(state) {
   return {
-    data: state.data,
+    allData: state.allData,
+    index: state.index,
   };
 }
 
