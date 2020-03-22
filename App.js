@@ -19,6 +19,7 @@ import {
 import {Provider} from 'react-redux';
 import Home from './src/pages/Home';
 import Info from './src/pages/Info';
+import AllData from './src/pages/AllData';
 import Login from './src/pages/Login';
 import Maps from './src/pages/Maps';
 import store from './src/redux/store';
@@ -193,6 +194,10 @@ class TheMainApp extends Component {
                   iconName = 'home';
                   focused ? (size = size + 4) : (size = size);
                   break;
+                case 'Data':
+                  iconName = 'table';
+                  focused ? (size = size + 4) : (size = size);
+                  break;
                 case 'Info':
                   iconName = 'info-circle';
                   focused ? (size = size + 4) : (size = size);
@@ -207,6 +212,7 @@ class TheMainApp extends Component {
           }}>
           <Tab.Screen name="Home" component={Home} />
           <Tab.Screen name="Maps" component={Maps} />
+          <Tab.Screen name="Data" component={AllData} />
           <Tab.Screen name="Info" component={Info} />
         </Tab.Navigator>
       </View>

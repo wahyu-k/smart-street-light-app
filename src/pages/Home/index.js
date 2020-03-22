@@ -58,6 +58,7 @@ class Home extends Component {
           default:
             break;
         }
+        // dispatch({type: 'SET_DEVICE_ID', deviceId: this.userId});
         this.props.loadData(this.userId, this.index);
         this.forceUpdate();
       }

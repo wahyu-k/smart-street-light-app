@@ -34,6 +34,7 @@ let initialState = {
   index: 0,
   isLoading: false,
   error: null,
+  userId: 1,
 };
 
 export default reducer = (state = initialState, action) => {
@@ -54,6 +55,8 @@ export default reducer = (state = initialState, action) => {
       });
     case 'SET_INDEX':
       return {...state, index: action.index};
+    case 'SET_DEVICE_ID':
+      return {...state, userId: action.deviceId};
     default:
       return state;
   }
