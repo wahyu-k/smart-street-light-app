@@ -40,23 +40,18 @@ let initialState = {
 export default reducer = (state = initialState, action) => {
   switch (action.type) {
     case 'LOAD_DATA_START':
-      return Object.assign({}, state, {isLoading: true});
+      return {...state, isLoading: true};
     case 'LOAD_DATA_SUCCESS':
-      return Object.assign({}, state, {
-        data: action.payload,
-        isLoading: false,
-        allData: action.allData,
-        index: action.index,
-      });
+      return {...state, isLoading: false, allData: action.allData};
     case 'LOAD_DATA_FAILURE':
       return Object.assign({}, state, {
-        error: action.payload,
+        // error: action.payload,
         isLoading: false,
       });
-    case 'SET_INDEX':
-      return {...state, index: action.index};
-    case 'SET_DEVICE_ID':
-      return {...state, userId: action.deviceId};
+    // case 'SET_INDEX':
+    //   return {...state, index: action.index};
+    // case 'SET_DEVICE_ID':
+    //   return {...state, userId: action.deviceId};
     default:
       return state;
   }
