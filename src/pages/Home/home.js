@@ -12,9 +12,7 @@ import axios from 'axios';
 
 class Home extends Component {
   componentDidMount() {
-    // () => this.props.dispatch({type: 'LOAD_DATA_START'});
     this.props.loadData({userId: 1});
-    // console.log(this.props.isLoading);
   }
   constructor(props) {
     super(props);
@@ -26,22 +24,7 @@ class Home extends Component {
         refreshControl={
           <RefreshControl
             refreshing={this.props.isLoading}
-            onRefresh={() => this.props.loadData()}
-            //   axios
-            //     .get('http://iot.arduinosolo.com/get_based_user.php?user_id=1')
-            //     .then(response => {
-            //       console.log(response.data);
-            //       //   dispatch({
-            //       //     type: 'LOAD_DATA_SUCCESS',
-            //       //     allData: response.data,
-            //       //   });
-            //     })
-            //     .catch(function(error) {
-            //       //   dispatch({type: 'LOAD_DATA_FAILURE'});
-            //     });
-            //   //   this.props.loadData();
-            //   //   this.forceUpdate();
-            // }}
+            onRefresh={() => this.props.loadData({userId: 1})}
           />
         }>
         <View style={{flex: 1}}>

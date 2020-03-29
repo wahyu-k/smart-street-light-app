@@ -7,9 +7,9 @@ class BatteryMod extends Component {
   render() {
     this.maxVTot = 13.4;
     this.percentage =
-      this.props.data.v_tot > this.maxVTot
+      this.props.allData[this.props.index].v_tot > this.maxVTot
         ? 100
-        : ((this.props.data.v_tot / this.maxVTot) * 100).toFixed(1);
+        : ((this.props.allData[this.props.index].v_tot / this.maxVTot) * 100).toFixed(1);
     return (
       <View style={styles.batteryWrap}>
         <View
@@ -26,7 +26,7 @@ class BatteryMod extends Component {
           <Text style={styles.percentageText}>%</Text>
         </View>
         <View style={styles.flexToRow}>
-          <Text>{this.props.data.v_tot}</Text>
+          <Text>{this.props.allData[this.props.index].v_tot}</Text>
           <Text> V of </Text>
           <Text>{this.maxVTot}</Text>
           <Text> V</Text>
@@ -38,7 +38,8 @@ class BatteryMod extends Component {
 
 function mapStateToProps(state) {
   return {
-    data: state.data,
+    allData: state.allData,
+    index: state.index,
   };
 }
 
