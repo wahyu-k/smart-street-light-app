@@ -10,6 +10,7 @@ import Home from '../Home/home';
 import Info from '../Info';
 import Maps from '../Maps/maps';
 import store from '../../redux/store';
+import Header from '../components/header';
 const Tab = createBottomTabNavigator();
 
 class MainApp extends Component {
@@ -19,6 +20,7 @@ class MainApp extends Component {
         <View style={{flex: 1}}>
           <NavigationContainer>
             <StatusBar backgroundColor="#b71c1c" barStyle="light-content" />
+            <Header />
             <Tab.Navigator
               backBehavior={'none'}
               screenOptions={({route}) => ({

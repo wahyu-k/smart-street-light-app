@@ -7,7 +7,7 @@ export const loadData = (userId, data) => {
 
     axios
       .get('http://iot.arduinosolo.com/get_based_user.php?user_id=' + userId)
-      .then(function(response) {
+      .then(response => {
         dispatch({
           type: 'LOAD_DATA_SUCCESS',
           payload: response.data[data],
@@ -15,8 +15,9 @@ export const loadData = (userId, data) => {
           index: data,
         });
       })
-      .catch(function(error) {
-        dispatch({type: 'LOAD_DATA_FAILURE', payload: error});
+      .catch(error => {
+        console.log(error);
+        dispatch({type: 'LOAD_DATA_FAILURE'});
       });
   };
 };
@@ -27,6 +28,7 @@ export const loadData2 = req => {
     axios
       .get(
         `http://iot.arduinosolo.com/get_based_user.php?user_id=${req.userId}`,
+        {timeout: 10000},
       )
       .then(response => {
         dispatch({
@@ -36,6 +38,7 @@ export const loadData2 = req => {
       })
       .catch(error => {
         console.log(error);
+        alert(error);
         dispatch({type: 'LOAD_DATA_FAILURE'});
       });
   };

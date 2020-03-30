@@ -44,10 +44,7 @@ export default reducer = (state = initialState, action) => {
     case 'LOAD_DATA_SUCCESS':
       return {...state, isLoading: false, allData: action.allData};
     case 'LOAD_DATA_FAILURE':
-      return Object.assign({}, state, {
-        // error: action.payload,
-        isLoading: false,
-      });
+      return {...state, isLoading: false};
     case 'SET_INDEX':
       return {...state, index: action.index};
     default:
