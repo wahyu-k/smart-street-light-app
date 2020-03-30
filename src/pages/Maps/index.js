@@ -10,37 +10,11 @@ import AsyncStorage from '@react-native-community/async-storage';
 class Maps extends Component {
   userId = 0;
   data = 0;
-  // state = {lat: 0, lng: 2};
   constructor(props) {
     super(props);
-    this.getStoredData('userId');
-    // this.props.loadData(this.userId, this.data);
-    // this.setState({
-    //   lat: parseFloat(this.props.alldata[0].lat),
-    //   lng: parseFloat(this.props.alldata[0].lng),
-    // });
   }
 
-  storeData = async (key, value) => {
-    try {
-      await AsyncStorage.setItem(key, value);
-    } catch (e) {}
-  };
-
-  getStoredData = async key => {
-    try {
-      const value = await AsyncStorage.getItem(key);
-      if (value !== null) {
-        this.userId = value;
-      }
-    } catch (e) {}
-  };
-
   render() {
-    // console.log(this.props.alldata[this.data].lat);
-    // console.log(this.props.alldata[this.data].lng);
-    // console.log(this.userId);
-
     this.state = {
       markers: this.props.allData,
     };
@@ -84,10 +58,11 @@ class Maps extends Component {
                 key={marker.index}
                 activeOpacity={0.8}
                 onPress={() => {
-                  this.data = marker.index;
+                  console.log('touch');
+                  // this.data = marker.index;
                   // this.storeData('deviceId', this.data.toString());
-                  this.storeData('index', this.data.toString());
-                  this.forceUpdate();
+                  // this.storeData('index', this.data.toString());
+                  // this.forceUpdate();
                   // this.props.navigation.navigate('Home');
                 }}>
                 <View

@@ -1,15 +1,15 @@
 import React from 'react';
-import {View, Image, Text} from 'react-native';
-import styles from '../../styles/styles.js';
+import {Image, Text, View} from 'react-native';
+import styles from '../../../../../styles/styles';
 
-const LoadMod = props => {
+const Load = props => {
   return (
     <View style={styles.flowchartWrap}>
       <Image
         source={
           props.chgLogic
-            ? require('../../assets/img/loadOff.png')
-            : require('../../assets/img/loadOn.png')
+            ? require('../../../../../assets/img/loadOff.png')
+            : require('../../../../../assets/img/loadOn.png')
         }
         style={styles.flowchartImg}
       />
@@ -22,4 +22,4 @@ const LoadMod = props => {
   );
 };
 
-export default LoadMod;
+export default Load;

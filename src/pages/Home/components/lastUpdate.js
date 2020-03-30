@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {Text, View} from 'react-native';
 import {connect} from 'react-redux';
-import styles from '../../styles/styles.js';
+import styles from '../../../styles/styles';
 
-class LastUpdateMod extends Component {
+class LastUpdate extends Component {
   render() {
     return (
       <View style={{flexDirection: 'row', margin: 16}}>
@@ -23,4 +23,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(LastUpdateMod);
+export default connect(mapStateToProps)(LastUpdate);

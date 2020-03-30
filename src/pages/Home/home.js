@@ -1,14 +1,13 @@
 import React, {Component} from 'react';
 import {RefreshControl, ScrollView, View} from 'react-native';
 import {connect} from 'react-redux';
-import LastUpdateMod from '../../modules/LastUpdateMod';
-import PowerMod from '../../modules/PowerMod';
-import DataClimateOrg from '../../organism/DataClimateOrg';
-import DataLocationOrg from '../../organism/DataLocationOrg';
-import DataVoltageOrg from '../../organism/DataVoltageOrg';
-import FlowchartOrg from '../../organism/FlowchartOrg';
 import * as action from '../../redux/action';
-import axios from 'axios';
+import Climate from './components/data/climate';
+import Location from './components/data/location';
+import Voltage from './components/data/voltage';
+import Flowchart from './components/flowchart/flowchart';
+import LastUpdate from './components/lastUpdate';
+import Power from './components/power';
 
 class Home extends Component {
   componentDidMount() {
@@ -28,21 +27,13 @@ class Home extends Component {
           />
         }>
         <View style={{flex: 1}}>
-          <LastUpdateMod />
-          <FlowchartOrg />
-          <PowerMod />
-          <DataVoltageOrg />
-          <DataClimateOrg />
-          <DataLocationOrg />
+          <LastUpdate />
+          <Flowchart />
+          <Power />
+          <Voltage />
+          <Climate />
+          <Location />
         </View>
-        <View
-          style={{
-            position: 'absolute',
-            height: '100%',
-            width: '100%',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}></View>
       </ScrollView>
     );
   }

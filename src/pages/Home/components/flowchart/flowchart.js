@@ -1,24 +1,24 @@
 import React, {Component} from 'react';
 import {View} from 'react-native';
 import {connect} from 'react-redux';
-import ArrowAtom from '../../atoms/ArrowAtom';
-import BatteryMod from '../../modules/BatteryMod';
-import LoadMod from '../../modules/LoadMod';
-import SolarPanelMod from '../../modules/SolarPanelMod';
-import styles from '../../styles/styles.js';
+import styles from '../../../../styles/styles';
+import Arrow from './components/arrow';
+import Battery from './components/battery';
+import Load from './components/load';
+import Solar from './components/solar';
 
-class FlowchartOrg extends Component {
+class Flowchart extends Component {
   render() {
     this.chgLogic = this.props.allData[this.props.index].c > 0 ? true : false;
     return (
       <View style={styles.flowchartOrgWrap}>
-        <SolarPanelMod
+        <Solar
           c={this.chgLogic ? this.props.allData[this.props.index].c : '0.00'}
         />
-        <ArrowAtom />
-        <BatteryMod />
-        <ArrowAtom />
-        <LoadMod
+        <Arrow />
+        <Battery />
+        <Arrow />
+        <Load
           chgLogic={this.chgLogic}
           c={
             !this.chgLogic
@@ -38,4 +38,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(FlowchartOrg);
+export default connect(mapStateToProps)(Flowchart);

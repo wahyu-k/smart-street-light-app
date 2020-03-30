@@ -1,15 +1,18 @@
 import React, {Component} from 'react';
 import {Text, View} from 'react-native';
-import styles from '../../styles/styles.js';
 import {connect} from 'react-redux';
+import styles from '../../../../../styles/styles';
 
-class BatteryMod extends Component {
+class Battery extends Component {
   render() {
     this.maxVTot = 13.4;
     this.percentage =
       this.props.allData[this.props.index].v_tot > this.maxVTot
         ? 100
-        : ((this.props.allData[this.props.index].v_tot / this.maxVTot) * 100).toFixed(1);
+        : (
+            (this.props.allData[this.props.index].v_tot / this.maxVTot) *
+            100
+          ).toFixed(1);
     return (
       <View style={styles.batteryWrap}>
         <View
@@ -43,4 +46,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(BatteryMod);
+export default connect(mapStateToProps)(Battery);

@@ -1,34 +1,28 @@
 import React, {Component} from 'react';
 import {View} from 'react-native';
 import {connect} from 'react-redux';
-import DataTitleMod from '../../modules/DataTitleMod';
-import DataValueMod from '../../modules/DataValueMod';
-import styles from '../../styles/styles.js';
+import styles from '../../../../styles/styles';
+import List from './components/list';
+import Title from './components/title';
 
-class DataLocationOrg extends Component {
-  // state={
-
-  // }
+class Location extends Component {
   render() {
-    // const sub = this.props.data.device_id;
-    // const sub = this.props.alldata[0].name;
-    // console.log('sub:' + sub);
     return (
       <View style={styles.dataWrapOrg}>
-        <DataTitleMod title="Location" src="location-city" />
-        <DataValueMod
+        <Title title="Location" src="location-city" />
+        <List
           title="Device Id: "
           value={this.props.allData[this.props.index].device_id}
         />
-        <DataValueMod
+        <List
           title="Device Name: "
           value={this.props.allData[this.props.index].name}
         />
-        <DataValueMod
+        <List
           title="Latitude: "
           value={this.props.allData[this.props.index].lat}
         />
-        <DataValueMod
+        <List
           title="Longitude: "
           value={this.props.allData[this.props.index].lng}
         />
@@ -45,4 +39,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(DataLocationOrg);
+export default connect(mapStateToProps)(Location);

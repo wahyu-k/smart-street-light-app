@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
 import {View} from 'react-native';
 import {connect} from 'react-redux';
-import DataTitleMod from '../../modules/DataTitleMod';
-import DataValueMod from '../../modules/DataValueMod';
-import styles from '../../styles/styles.js';
+import styles from '../../../../styles/styles';
+import List from './components/list';
+import Title from './components/title';
 
-class DataClimateOrg extends Component {
+class Climate extends Component {
   render() {
     return (
       <View style={styles.dataWrapOrg}>
-        <DataTitleMod title="Climate" src="cloud" />
-        <DataValueMod
+        <Title title="Climate" src="cloud" />
+        <List
           title="Sensor 1: "
           value={this.props.allData[this.props.index].t}
           unit=" °C"
@@ -27,4 +27,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(DataClimateOrg);
+export default connect(mapStateToProps)(Climate);

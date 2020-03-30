@@ -1,36 +1,36 @@
 import React, {Component} from 'react';
 import {View} from 'react-native';
 import {connect} from 'react-redux';
-import DataTitleMod from '../../modules/DataTitleMod';
-import DataValueMod from '../../modules/DataValueMod';
-import styles from '../../styles/styles.js';
+import styles from '../../../../styles/styles';
+import List from './components/list';
+import Title from './components/title';
 
-class DataVoltageOrg extends Component {
+class Voltage extends Component {
   render() {
     return (
       <View style={styles.dataWrapOrg}>
-        <DataTitleMod title="Voltage" src="local-gas-station" />
-        <DataValueMod
+        <Title title="Voltage" src="local-gas-station" />
+        <List
           title="Cell 1: "
           value={this.props.allData[this.props.index].v1}
           unit=" V"
         />
-        <DataValueMod
+        <List
           title="Cell 2: "
           value={this.props.allData[this.props.index].v2}
           unit=" V"
         />
-        <DataValueMod
+        <List
           title="Cell 3: "
           value={this.props.allData[this.props.index].v3}
           unit=" V"
         />
-        <DataValueMod
+        <List
           title="Cell 4: "
           value={this.props.allData[this.props.index].v4}
           unit=" V"
         />
-        <DataValueMod
+        <List
           title="Total : "
           value={this.props.allData[this.props.index].v_tot}
           unit=" V"
@@ -47,4 +47,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(DataVoltageOrg);
+export default connect(mapStateToProps)(Voltage);

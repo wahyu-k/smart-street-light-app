@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {Text, View} from 'react-native';
 import {connect} from 'react-redux';
-import styles from '../../styles/styles.js';
+import styles from '../../../styles/styles';
 
-class PowerMod extends Component {
+class Power extends Component {
   render() {
     this.powerEq = Math.abs(
       this.props.allData[this.props.index].c *
@@ -26,4 +26,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(PowerMod);
+export default connect(mapStateToProps)(Power);
