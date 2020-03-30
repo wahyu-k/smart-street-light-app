@@ -48,10 +48,8 @@ export default reducer = (state = initialState, action) => {
         // error: action.payload,
         isLoading: false,
       });
-    // case 'SET_INDEX':
-    //   return {...state, index: action.index};
-    // case 'SET_DEVICE_ID':
-    //   return {...state, userId: action.deviceId};
+    case 'SET_INDEX':
+      return {...state, index: action.index};
     default:
       return state;
   }

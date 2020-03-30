@@ -40,3 +40,7 @@ export const loadData2 = req => {
       });
   };
 };
+
+export const setIndex = req => {
+  return dispatch => dispatch({type: 'SET_INDEX', index: req.index});
+};

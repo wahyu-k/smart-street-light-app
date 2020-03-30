@@ -12,6 +12,7 @@ import Power from './components/power';
 class Home extends Component {
   componentDidMount() {
     this.props.loadData({userId: 1});
+    console.log(this.props.state);
   }
   constructor(props) {
     super(props);
@@ -43,6 +44,7 @@ function mapStateToProps(state) {
   return {
     allData: state.allData,
     isLoading: state.isLoading,
+    state: state,
   };
 }
 

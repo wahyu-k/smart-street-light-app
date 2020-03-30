@@ -8,7 +8,7 @@ import {Provider} from 'react-redux';
 import AllData from '../AllData';
 import Home from '../Home/home';
 import Info from '../Info';
-import Maps from '../Maps';
+import Maps from '../Maps/maps';
 import store from '../../redux/store';
 const Tab = createBottomTabNavigator();
 

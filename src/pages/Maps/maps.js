@@ -1,34 +1,34 @@
 import React, {Component} from 'react';
-import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import MapView, {AnimatedRegion, Marker} from 'react-native-maps';
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import MapView, {Marker} from 'react-native-maps';
 import {connect} from 'react-redux';
 import * as action from '../../redux/action';
 
-import AsyncStorage from '@react-native-community/async-storage';
-
 class Maps extends Component {
-  userId = 0;
-  data = 0;
-  constructor(props) {
-    super(props);
+  componentDidMount() {
+    console.log('cdm');
+    console.log(JSON.stringify(this.props.allData, null, 1));
   }
 
   render() {
-    this.state = {
-      markers: this.props.allData,
-    };
     return (
       <View style={styles.container}>
         <MapView
           style={styles.map}
           region={{
-            latitude: parseFloat(this.props.allData[this.data].lat),
-            longitude: parseFloat(this.props.allData[this.data].lng),
+            latitude: parseFloat(this.props.allData[this.props.index].lat),
+            longitude: parseFloat(this.props.allData[this.props.index].lng),
             latitudeDelta: 0.2,
             longitudeDelta: 0.2,
           }}>
-          {this.state.markers.map(marker => (
+          {this.props.allData.map(marker => (
             <Marker
               key={marker.index}
               title={marker.index.toString()}
@@ -53,17 +53,13 @@ class Maps extends Component {
             style={{
               paddingLeft: 12,
             }}>
-            {this.state.markers.map(marker => (
+            {this.props.allData.map(marker => (
               <TouchableOpacity
                 key={marker.index}
-                activeOpacity={0.8}
+                activeOpacity={0.1}
                 onPress={() => {
-                  console.log('touch');
-                  // this.data = marker.index;
-                  // this.storeData('deviceId', this.data.toString());
-                  // this.storeData('index', this.data.toString());
-                  // this.forceUpdate();
-                  // this.props.navigation.navigate('Home');
+                  console.log(marker.index);
+                  this.props.setIndex({index: marker.index});
                 }}>
                 <View
                   style={{
@@ -117,14 +113,14 @@ class Maps extends Component {
 
 function mapStateToProps(state) {
   return {
-    data: state.data,
     allData: state.allData,
+    index: state.index,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    loadData: (userId, data) => dispatch(action.loadData(userId, data)),
+    setIndex: ({index}) => dispatch(action.setIndex({index})),
   };
 }
 
