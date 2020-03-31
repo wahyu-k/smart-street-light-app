@@ -1,28 +1,6 @@
 import axios from 'axios';
 
-export const loadData = (userId, data) => {
-  return (dispatch, getState) => {
-    dispatch({type: 'LOAD_DATA_START'});
-    console.log('start axios');
-
-    axios
-      .get('http://iot.arduinosolo.com/get_based_user.php?user_id=' + userId)
-      .then(response => {
-        dispatch({
-          type: 'LOAD_DATA_SUCCESS',
-          payload: response.data[data],
-          allData: response.data,
-          index: data,
-        });
-      })
-      .catch(error => {
-        console.log(error);
-        dispatch({type: 'LOAD_DATA_FAILURE'});
-      });
-  };
-};
-
-export const loadData2 = req => {
+export const loadData = req => {
   return dispatch => {
     dispatch({type: 'LOAD_DATA_START'});
     axios

@@ -1,5 +1,11 @@
 import React, {Component} from 'react';
-import {RefreshControl, ScrollView, View} from 'react-native';
+import {
+  RefreshControl,
+  ScrollView,
+  View,
+  TouchableOpacity,
+  Text,
+} from 'react-native';
 import {connect} from 'react-redux';
 import * as action from '../../redux/action';
 import Climate from './components/data/climate';
@@ -8,6 +14,7 @@ import Voltage from './components/data/voltage';
 import Flowchart from './components/flowchart/flowchart';
 import LastUpdate from './components/lastUpdate';
 import Power from './components/power';
+import ShowAllData from './components/showAllData';
 
 class Home extends Component {
   componentDidMount() {
@@ -34,6 +41,7 @@ class Home extends Component {
           <Voltage />
           <Climate />
           <Location />
+          {/* <ShowAllData navigation={this.navigation} /> */}
         </View>
       </ScrollView>
     );
@@ -50,7 +58,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    loadData: ({userId}) => dispatch(action.loadData2({userId})),
+    loadData: ({userId}) => dispatch(action.loadData({userId})),
   };
 }
 
