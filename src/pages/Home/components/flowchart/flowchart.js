@@ -1,31 +1,31 @@
 import React, {Component} from 'react';
 import {View} from 'react-native';
 import {connect} from 'react-redux';
-import styles from '../../../../styles/styles';
+import style from '../../../../additional/style';
 import Arrow from './components/arrow';
 import Battery from './components/battery';
 import Load from './components/load';
 import Solar from './components/solar';
 
+const ROOT_STYLE = style.home.flowchart;
+const S_VIEW = ROOT_STYLE.view;
+
 class Flowchart extends Component {
   render() {
     this.chgLogic = this.props.allData[this.props.index].c > 0 ? true : false;
+    this.cSolar = this.chgLogic
+      ? this.props.allData[this.props.index].c
+      : '0.00';
+    this.cLoad = !this.chgLogic
+      ? Math.abs(this.props.allData[this.props.index].c)
+      : '0.00';
     return (
-      <View style={styles.flowchartOrgWrap}>
-        <Solar
-          c={this.chgLogic ? this.props.allData[this.props.index].c : '0.00'}
-        />
+      <View style={S_VIEW}>
+        <Solar c={this.cSolar} />
         <Arrow />
         <Battery />
         <Arrow />
-        <Load
-          chgLogic={this.chgLogic}
-          c={
-            !this.chgLogic
-              ? Math.abs(this.props.allData[this.props.index].c)
-              : '0.00'
-          }
-        />
+        <Load chgLogic={this.chgLogic} c={this.cLoad} />
       </View>
     );
   }

@@ -1,14 +1,17 @@
 import React from 'react';
 import {Image, View} from 'react-native';
-import styles from '../../../../../styles/styles';
+import style from '../../../../../additional/style';
+
+const ROOT_STYLE = style.home.flowchart.arrow;
+const S_VIEW = ROOT_STYLE.view;
+const S_IMG = ROOT_STYLE.img;
+
+const IMG_LOC = '../../../../../assets/img/staticArrow.png';
 
 const Arrow = () => {
   return (
-    <View style={styles.arrowWrap}>
-      <Image
-        source={require('../../../../../assets/img/staticArrow.png')}
-        style={{...styles.arrowImg}}
-      />
+    <View style={S_VIEW}>
+      <Image source={require(IMG_LOC)} style={S_IMG} />
     </View>
   );
 };

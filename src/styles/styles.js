@@ -1,6 +1,48 @@
-import {StyleSheet} from 'react-native';
+export default {
+  home: {
+    lastUpdate: {
+      text: {
+        paddingLeft: 16,
+      },
+    },
+    power: {
+      text: {
+        fontWeight: 'bold',
+        fontSize: 16,
+      },
+    },
+    flowchart: {
+      arrow: {
+        view: {
+          justifyContent: 'center',
+          margin: 2,
+        },
+        img: {
+          width: 30,
+          height: 30,
+        },
+      },
+      battery: {
+        view: {
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: 75,
+          width: 135,
+          borderWidth: 2,
+          borderRadius: 8,
+          paddingHorizontal: 8,
+          marginVertical: 12,
+        },
+        percentageText: {
+          fontSize: 20,
+          fontWeight: 'bold',
+        },
+      },
+      load:{
 
-export default StyleSheet.create({
+      }
+    },
+  },
   lastUpdateText: {
     paddingLeft: 16,
   },
@@ -96,4 +138,4 @@ export default StyleSheet.create({
       height: -1,
     },
   },
-});
+};
