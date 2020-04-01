@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {RefreshControl, ScrollView} from 'react-native';
+import {RefreshControl, ScrollView, TouchableOpacity, Text} from 'react-native';
 import {connect} from 'react-redux';
 import style from '../../additional/style';
 import * as action from '../../redux/action';
@@ -9,6 +9,7 @@ import Voltage from './components/data/voltage';
 import Flowchart from './components/flowchart/flowchart';
 import LastUpdate from './components/lastUpdate';
 import Power from './components/power';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const ROOT_STYLE = style.home;
 const S_SCROLL_VIEW = ROOT_STYLE.scrollView;
@@ -36,9 +37,23 @@ class Home extends Component {
         <Voltage />
         <Climate />
         <Location />
+        <TouchableOpacity
+          style={{backgroundColor: 'pink', height: 50, width: 130}}
+          onPress={() => {
+            this.storeData();
+          }}>
+          <Text>LOGOUT</Text>
+        </TouchableOpacity>
       </ScrollView>
     );
   }
+  storeData = async () => {
+    try {
+      await AsyncStorage.removeItem('USER_ID');
+    } catch (e) {
+      alert(e);
+    }
+  };
 }
 
 function mapStateToProps(state) {

@@ -14,6 +14,8 @@ import {
   View,
 } from 'react-native';
 import {Icon} from 'react-native-elements';
+import {connect} from 'react-redux';
+import * as action from '../../redux/action';
 
 class Login extends Component {
   constructor(props) {
@@ -100,8 +102,8 @@ class Login extends Component {
               }}
               onPress={() => {
                 Keyboard.dismiss();
-                console.log(this.props);
-                this.props.navigation.navigate('MainApp');
+                // this.storeData('1');
+                this.loginHandler('admin', 'admin');
                 // this.storeData('userId', '2');
                 // this.getStoredData('userId');
                 // this.forceUpdate();
@@ -133,11 +135,23 @@ class Login extends Component {
     }
   };
 
+  storeData = async userId => {
+    try {
+      await AsyncStorage.setItem('USER_ID', userId);
+      this.props.setUserId({userId: userId});
+    } catch (e) {
+      alert(e);
+    }
+  };
+
   responseHandler = res => {
     console.log(JSON.stringify(res.data, null, 1));
     this.setState({isLoading: false});
     if (res.data.value === 0) {
       alert('Wrong username or password');
+    } else {
+      console.log('welcome');
+      this.storeData(res.data.userId);
     }
   };
 
@@ -163,4 +177,10 @@ class Login extends Component {
   };
 }
 
-export default Login;
+function mapDispatchToProps(dispatch) {
+  return {
+    setUserId: ({userId}) => dispatch(action.setUserId({userId})),
+  };
+}
+
+export default connect(null, mapDispatchToProps)(Login);

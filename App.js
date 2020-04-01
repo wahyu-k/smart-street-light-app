@@ -1,24 +1,24 @@
-import React, {Component} from 'react';
-import {StyleSheet, View} from 'react-native';
-import MainApp from './src/pages/MainApp/mainApp';
+import AsyncStorage from '@react-native-community/async-storage';
 import {NavigationContainer} from '@react-navigation/native';
-import Login from './src/pages/Login/login';
 import {createStackNavigator} from '@react-navigation/stack';
+import React, {Component} from 'react';
+import {connect, Provider} from 'react-redux';
+import Login from './src/pages/Login/login';
+import MainApp from './src/pages/MainApp/mainApp';
+import store from './src/redux/store';
+import {Text} from 'react-native';
+import Splash from './src/pages/Splash/splash';
 
 const Stack = createStackNavigator();
 
 class App extends Component {
   render() {
     return (
-      <NavigationContainer>
-        <View style={{flex: 1}}>
-          <Stack.Navigator initialRouteName="Login" headerMode="none">
-            <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="MainApp" component={MainApp} />
-          </Stack.Navigator>
-        </View>
-      </NavigationContainer>
+      <Provider store={store}>
+        <Splash />
+      </Provider>
     );
   }
 }
+
 export default App;

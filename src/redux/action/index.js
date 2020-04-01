@@ -25,3 +25,7 @@ export const loadData = req => {
 export const setIndex = req => {
   return dispatch => dispatch({type: 'SET_INDEX', index: req.index});
 };
+
+export const setUserId = req => {
+  return dispatch => dispatch({type: 'SET_USER_ID', userId: req.userId});
+};

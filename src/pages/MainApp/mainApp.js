@@ -15,47 +15,45 @@ const Tab = createBottomTabNavigator();
 class MainApp extends Component {
   render() {
     return (
-      <Provider store={store}>
-        <View style={{flex: 1}}>
-          <StatusBar backgroundColor="#b71c1c" barStyle="light-content" />
-          <Header />
-          <Tab.Navigator
-            backBehavior={'none'}
-            screenOptions={({route}) => ({
-              tabBarIcon: ({focused, color, size}) => {
-                let iconName;
-                switch (route.name) {
-                  case 'Maps':
-                    iconName = 'map-marker';
-                    focused ? (size = size + 4) : (size = size);
-                    break;
-                  case 'Home':
-                    iconName = 'home';
-                    focused ? (size = size + 4) : (size = size);
-                    break;
-                  case 'Data':
-                    iconName = 'table';
-                    focused ? (size = size + 4) : (size = size);
-                    break;
-                  case 'Info':
-                    iconName = 'info-circle';
-                    focused ? (size = size + 4) : (size = size);
-                    break;
-                }
-                return <Icon name={iconName} color={color} size={size} />;
-              },
-            })}
-            tabBarOptions={{
-              activeTintColor: '#b71c1c',
-              inactiveTintColor: 'gray',
-            }}>
-            <Tab.Screen name="Home" component={Home} />
-            <Tab.Screen name="Maps" component={Maps} />
-            <Tab.Screen name="Data" component={AllData} />
-            <Tab.Screen name="Info" component={Info} />
-          </Tab.Navigator>
-        </View>
-      </Provider>
+      <View style={{flex: 1}}>
+        <StatusBar backgroundColor="#b71c1c" barStyle="light-content" />
+        <Header />
+        <Tab.Navigator
+          backBehavior={'none'}
+          screenOptions={({route}) => ({
+            tabBarIcon: ({focused, color, size}) => {
+              let iconName;
+              switch (route.name) {
+                case 'Maps':
+                  iconName = 'map-marker';
+                  focused ? (size = size + 4) : (size = size);
+                  break;
+                case 'Home':
+                  iconName = 'home';
+                  focused ? (size = size + 4) : (size = size);
+                  break;
+                case 'Data':
+                  iconName = 'table';
+                  focused ? (size = size + 4) : (size = size);
+                  break;
+                case 'Info':
+                  iconName = 'info-circle';
+                  focused ? (size = size + 4) : (size = size);
+                  break;
+              }
+              return <Icon name={iconName} color={color} size={size} />;
+            },
+          })}
+          tabBarOptions={{
+            activeTintColor: '#b71c1c',
+            inactiveTintColor: 'gray',
+          }}>
+          <Tab.Screen name="Home" component={Home} />
+          <Tab.Screen name="Maps" component={Maps} />
+          <Tab.Screen name="Data" component={AllData} />
+          <Tab.Screen name="Info" component={Info} />
+        </Tab.Navigator>
+      </View>
     );
   }
 }
