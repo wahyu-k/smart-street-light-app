@@ -16,32 +16,14 @@ import {
 import {Icon} from 'react-native-elements';
 
 class Login extends Component {
-  state = {
-    username: '',
-    pass: '',
-    animating: false,
-    userId: '0',
-  };
-
   constructor(props) {
     super(props);
+    this.state = {
+      username: '',
+      password: '',
+      isLoading: false,
+    };
   }
-
-  storeData = async (key, value) => {
-    try {
-      await AsyncStorage.setItem(key, value);
-    } catch (e) {}
-  };
-
-  getStoredData = async key => {
-    try {
-      const value = await AsyncStorage.getItem(key);
-      if (value !== null) {
-        this.setState({userId: value});
-      }
-    } catch (e) {}
-  };
-
   render() {
     return (
       <View style={{flex: 1}}>
@@ -49,7 +31,7 @@ class Login extends Component {
           style={{...StyleSheet.absoluteFillObject, position: 'absolute'}}
           size="large"
           color="#b71c1c"
-          animating={this.state.animating}
+          animating={this.state.isLoading}
         />
         <View style={{flex: 1}}>
           <StatusBar backgroundColor="#b71c1c" barStyle="light-content" />
@@ -68,24 +50,26 @@ class Login extends Component {
               }}
             />
           </View>
-          <View style={styles.container}>
+          <View
+            style={{
+              margin: 16,
+              flex: 1,
+              alignItems: 'flex-start',
+              justifyContent: 'center',
+            }}>
             <Text style={{fontSize: 24, fontWeight: 'bold', marginBottom: 10}}>
               First, you must sign in...
             </Text>
             <TextInput
               placeholder="Username"
-              style={styles.input}
-              onChangeText={text => {
-                this.setState({username: text});
-              }}
+              style={{fontSize: 16, width: '100%'}}
+              onChangeText={value => this.setState({username: value})}
             />
             <TextInput
               placeholder="Password"
-              style={styles.input}
+              style={{fontSize: 16, width: '100%'}}
               secureTextEntry
-              onChangeText={text => {
-                this.setState({pass: text});
-              }}
+              onChangeText={value => this.setState({password: value})}
             />
             <TouchableOpacity
               style={{
@@ -99,7 +83,7 @@ class Login extends Component {
               }}
               onPress={() => {
                 Keyboard.dismiss();
-                this.checkLogin(this.state.username, this.state.pass);
+                this.loginHandler(this.state.username, this.state.password);
               }}>
               <Icon name="lock-open" color="white" />
               <Text style={{color: 'white', marginLeft: 8}}>Login</Text>
@@ -116,9 +100,11 @@ class Login extends Component {
               }}
               onPress={() => {
                 Keyboard.dismiss();
-                this.storeData('userId', '2');
-                this.getStoredData('userId');
-                this.forceUpdate();
+                console.log(this.props);
+                this.props.navigation.navigate('MainApp');
+                // this.storeData('userId', '2');
+                // this.getStoredData('userId');
+                // this.forceUpdate();
               }}>
               <Icon name="tv" color="white" />
               <Text style={{color: 'white', marginLeft: 8}}>Demo</Text>
@@ -138,41 +124,43 @@ class Login extends Component {
       </View>
     );
   }
-  checkLogin = (username, pass) => {
-    this.setState({animating: true});
+
+  loginHandler = (username, password) => {
+    if (this.checkIsEmpty(username, password)) {
+      alert('Each username and password must be filled!');
+    } else {
+      this.checkLogin(username, password);
+    }
+  };
+
+  responseHandler = res => {
+    console.log(JSON.stringify(res.data, null, 1));
+    this.setState({isLoading: false});
+    if (res.data.value === 0) {
+      alert('Wrong username or password');
+    }
+  };
+
+  checkIsEmpty = (username, password) => {
+    if (username === '' || password === '') {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  checkLogin = (username, password) => {
+    this.setState({isLoading: true});
     var body = new FormData();
     body.append('username', username);
-    body.append('pass', pass);
+    body.append('pass', password);
     axios
-      .post('http://iot.arduinosolo.com/login.php', body)
-      .then(response => {
-        response.data.userId === undefined
-          ? this.setState({userId: '0'})
-          : this.setState({userId: response.data.userId});
-        this.setState({animating: false});
-        console.log(this.state.userId);
-        if (this.state.userId !== '0') {
-          this.storeData('userId', this.state.userId);
-          this.storeData('index', '0');
-        } else {
-          ToastAndroid.show('Wrong username or password!', ToastAndroid.SHORT);
-          this.storeData('userId', '0');
-        }
+      .post(`http://iot.arduinosolo.com/login.php`, body)
+      .then(res => {
+        this.responseHandler(res);
       })
-      .catch(function(error) {});
+      .catch(err => alert(err));
   };
 }
 
 export default Login;
-
-const styles = StyleSheet.create({
-  container: {
-    margin: 16,
-    flex: 1,
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-  },
-  input: {
-    fontSize: 16,
-  },
-});
