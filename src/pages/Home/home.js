@@ -16,11 +16,16 @@ const S_SCROLL_VIEW = ROOT_STYLE.scrollView;
 
 class Home extends Component {
   componentDidMount() {
-    this.props.loadData({userId: 1});
+    this.loadData();
   }
   constructor(props) {
     super(props);
   }
+
+  loadData = () => {
+    this.props.loadData({userId: this.props.userId});
+  };
+
   render() {
     return (
       <ScrollView
@@ -28,7 +33,7 @@ class Home extends Component {
         refreshControl={
           <RefreshControl
             refreshing={this.props.isLoading}
-            onRefresh={() => this.props.loadData({userId: 1})}
+            onRefresh={() => this.loadData()}
           />
         }>
         <LastUpdate />
@@ -61,6 +66,7 @@ function mapStateToProps(state) {
   return {
     allData: state.allData,
     isLoading: state.isLoading,
+    userId: state.userId,
   };
 }
 
