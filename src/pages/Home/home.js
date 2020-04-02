@@ -49,7 +49,8 @@ class Home extends Component {
   }
   storeData = async () => {
     try {
-      await AsyncStorage.removeItem('USER_ID');
+      await AsyncStorage.setItem('USER_ID', '0');
+      this.props.setUserId({userId: '0'});
     } catch (e) {
       alert(e);
     }
@@ -66,6 +67,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     loadData: ({userId}) => dispatch(action.loadData({userId})),
+    setUserId: ({userId}) => dispatch(action.setUserId({userId})),
   };
 }
 

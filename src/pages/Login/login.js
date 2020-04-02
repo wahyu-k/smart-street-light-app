@@ -102,11 +102,7 @@ class Login extends Component {
               }}
               onPress={() => {
                 Keyboard.dismiss();
-                // this.storeData('1');
-                this.loginHandler('admin', 'admin');
-                // this.storeData('userId', '2');
-                // this.getStoredData('userId');
-                // this.forceUpdate();
+                this.loginHandler('demo', 'demo123');
               }}>
               <Icon name="tv" color="white" />
               <Text style={{color: 'white', marginLeft: 8}}>Demo</Text>

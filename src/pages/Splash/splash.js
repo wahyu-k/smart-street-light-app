@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {connect} from 'react-redux';
 import AsyncStorage from '@react-native-community/async-storage';
 import {NavigationContainer} from '@react-navigation/native';
+import React, {Component} from 'react';
+import {ActivityIndicator, Text, View} from 'react-native';
+import {connect} from 'react-redux';
+import * as action from '../../redux/action';
 import Login from '../Login/login';
 import MainApp from '../MainApp/mainApp';
-import * as action from '../../redux/action';
 
 class Splash extends Component {
   constructor(props) {
@@ -13,7 +13,6 @@ class Splash extends Component {
     this.getData();
     this.state = {
       isLogin: false,
-      token: null,
     };
   }
 
@@ -21,17 +20,8 @@ class Splash extends Component {
     try {
       const value = await AsyncStorage.getItem('USER_ID');
       console.log(value);
-      this.props.setUserId({userId: value});
       if (value !== null) {
-        this.setState({
-          isLogin: true,
-          token: value,
-        });
-      } else {
-        this.setState({
-          isLogin: false,
-          token: null,
-        });
+        this.props.setUserId({userId: value});
       }
     } catch (e) {
       alert(e);
@@ -40,25 +30,27 @@ class Splash extends Component {
 
   authHandler = () => {
     if (this.props.userId !== null) {
-      return <MainApp />;
+      if (this.props.userId !== '0') {
+        return <MainApp />;
+      } else {
+        return <Login />;
+      }
     } else {
-      return <Login />;
+      return this.Loading();
     }
   };
 
-  render() {
+  Loading = () => {
     return (
-      <NavigationContainer>
-        {/* <Text>TRIAL</Text> */}
-        {this.authHandler()}
-        {/* {console.log(`redux userid = ${this.props.userId}`)} */}
-        {/* <MainApp /> */}
-        {/* <Stack.Navigator initialRouteName="Login" headerMode="none">
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="MainApp" component={MainApp} />
-        </Stack.Navigator> */}
-      </NavigationContainer>
+      <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
+        <ActivityIndicator size={50} color="#BF0101" />
+        <Text style={{marginTop: 8}}>Wait a second...</Text>
+      </View>
     );
+  };
+
+  render() {
+    return <NavigationContainer>{this.authHandler()}</NavigationContainer>;
   }
 }
 
