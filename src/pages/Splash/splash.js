@@ -1,8 +1,8 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import {NavigationContainer} from '@react-navigation/native';
-import React, {Component} from 'react';
-import {ActivityIndicator, Text, View} from 'react-native';
-import {connect} from 'react-redux';
+import { NavigationContainer } from '@react-navigation/native';
+import React, { Component } from 'react';
+import { ActivityIndicator, Text, View } from 'react-native';
+import { connect } from 'react-redux';
 import * as action from '../../redux/action';
 import Login from '../Login/login';
 import MainApp from '../MainApp/mainApp';
@@ -11,9 +11,6 @@ class Splash extends Component {
   constructor(props) {
     super(props);
     this.getData();
-    this.state = {
-      isLogin: false,
-    };
   }
 
   getData = async () => {
@@ -21,7 +18,9 @@ class Splash extends Component {
       const value = await AsyncStorage.getItem('USER_ID');
       console.log(value);
       if (value !== null) {
-        this.props.setUserId({userId: value});
+        this.props.setUserId({ userId: value });
+      } else {
+        this.props.setUserId({ userId: '0' });
       }
     } catch (e) {
       alert(e);
@@ -42,9 +41,9 @@ class Splash extends Component {
 
   Loading = () => {
     return (
-      <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
+      <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
         <ActivityIndicator size={50} color="#BF0101" />
-        <Text style={{marginTop: 8}}>Wait a second...</Text>
+        <Text style={{ marginTop: 8 }}>Wait a second...</Text>
       </View>
     );
   };
@@ -62,7 +61,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setUserId: ({userId}) => dispatch(action.setUserId({userId})),
+    setUserId: ({ userId }) => dispatch(action.setUserId({ userId })),
   };
 }
 
