@@ -1,112 +1,53 @@
 import React, { Component } from 'react';
-import {
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { connect } from 'react-redux';
+import style from '../../additional/style';
 import * as action from '../../redux/action';
+import Card from './components/card';
 
+const ROOT_STYLE = style.maps;
+const S_VIEW = ROOT_STYLE.map.view;
 class Maps extends Component {
-  /*  render the View of the Maps function to be displayed to user */
   render() {
+    /* define region based on lat and lng store on redux
+       this data based on each index selected */
+    this.region = {
+      latitude: parseFloat(this.props.allData[this.props.index].lat),
+      longitude: parseFloat(this.props.allData[this.props.index].lng),
+      latitudeDelta: 0.2,
+      longitudeDelta: 0.2,
+    };
+
+    /* mapping function to add marker based on all data on redux thunk
+      this is array type */
+    addMarker = () => {
+      return this.props.allData.map(marker => (
+        <Marker
+          key={marker.index}
+          title={marker.name}
+          description={`Lat:${marker.lat} Lng:${marker.lng}`}
+          coordinate={{
+            latitude: parseFloat(marker.lat),
+            longitude: parseFloat(marker.lng),
+          }}
+        />
+      ));
+    };
+
+    // return the view displayed on user
     return (
-      <View style={styles.container}>
-        <MapView
-          style={styles.map}
-          region={{
-            latitude: parseFloat(this.props.allData[this.props.index].lat),
-            longitude: parseFloat(this.props.allData[this.props.index].lng),
-            latitudeDelta: 0.2,
-            longitudeDelta: 0.2,
-          }}>
-          {this.props.allData.map(marker => (
-            <Marker
-              key={marker.index}
-              title={marker.index.toString()}
-              description={marker.name}
-              coordinate={{
-                latitude: parseFloat(marker.lat),
-                longitude: parseFloat(marker.lng),
-              }}
-            />
-          ))}
+      <View style={S_VIEW}>
+        <MapView style={S_VIEW} region={this.region}>
+          {addMarker()}
         </MapView>
-        <View
-          style={{
-            position: 'absolute',
-            justifyContent: 'flex-end',
-            alignItems: 'center',
-            bottom: 50,
-          }}>
-          <ScrollView
-            horizontal={true}
-            snapToStart
-            style={{
-              paddingLeft: 12,
-            }}>
-            {this.props.allData.map(marker => (
-              <TouchableOpacity
-                key={marker.index}
-                activeOpacity={0.1}
-                onPress={() => {
-                  console.log(marker.index);
-                  this.props.setIndex({ index: marker.index });
-                }}>
-                <View
-                  style={{
-                    backgroundColor: '#fefefe',
-                    height: 80,
-                    width: 270,
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderRadius: 30,
-                    marginRight: 12,
-                  }}>
-                  <Image
-                    source={require('../../assets/img/streetLightAva.jpg')}
-                    resizeMode="stretch"
-                    style={{
-                      resizeMode: 'cover',
-                      height: 65,
-                      width: 65,
-                      marginRight: 16,
-                      borderRadius: 50,
-                    }}
-                  />
-                  <View>
-                    <Text style={{ fontWeight: 'bold' }}>{marker.name}</Text>
-                    <View style={{ flexDirection: 'row' }}>
-                      <Text>{marker.v_tot}</Text>
-                      <Text style={{ marginRight: 16 }}> V</Text>
-                      <Text>{marker.c}</Text>
-                      <Text style={{ marginRight: 16 }}> A</Text>
-                    </View>
-                    <View style={{ flexDirection: 'row' }}>
-                      <Text>
-                        {(marker.v_tot > 13.4
-                          ? 100
-                          : (marker.v_tot / 13.4) * 100
-                        ).toFixed(0)}
-                      </Text>
-                      <Text style={{ marginRight: 16 }}> %</Text>
-                    </View>
-                  </View>
-                </View>
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
-        </View>
+        <Card />
       </View>
     );
   }
 }
 
+//  basic function to use userId redux props in this page
 function mapStateToProps(state) {
   return {
     allData: state.allData,
@@ -114,20 +55,12 @@ function mapStateToProps(state) {
   };
 }
 
+//  basic function to use setUserId redux action in this page
 function mapDispatchToProps(dispatch) {
   return {
     setIndex: ({ index }) => dispatch(action.setIndex({ index })),
   };
 }
 
+//  connecting the map function with redux to this page
 export default connect(mapStateToProps, mapDispatchToProps)(Maps);
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  map: {
-    flex: 1,
-    // ...StyleSheet.absoluteFillObject,
-  },
-});

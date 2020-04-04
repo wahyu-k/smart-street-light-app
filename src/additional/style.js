@@ -1,3 +1,13 @@
+/**This is the style file that can be access
+ * in case to use the style.
+ * This style categorized by every pages and
+ * component's pages, so I recommend you write:
+ * 0. import this file and named by 'style'
+ * 1. ROOT_STYLE = style_file.pages
+ * 2. S_XXXX = ROOT_STYLE.component.style
+ *    ^ this S stand for STYLE
+ */
+
 export default {
   home: {
     lastUpdate: {
@@ -120,6 +130,43 @@ export default {
       flex: 1,
       backgroundColor: 'white',
       position: 'relative',
+    },
+  },
+  maps: {
+    map: {
+      view: {
+        flex: 1,
+      },
+    },
+    card: {
+      view: {
+        position: 'absolute',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        bottom: 50,
+      },
+      button: {
+        view: {
+          backgroundColor: '#fefefe',
+          height: 80,
+          width: 270,
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderRadius: 30,
+          marginHorizontal: 8,
+        },
+        image: {
+          resizeMode: 'cover',
+          height: 65,
+          width: 65,
+          marginRight: 16,
+          borderRadius: 50,
+        },
+        title: {
+          fontWeight: 'bold',
+        },
+      },
     },
   },
 };
