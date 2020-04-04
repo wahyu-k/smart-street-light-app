@@ -1,6 +1,12 @@
-import React, {Component} from 'react';
-import {RefreshControl, ScrollView, TouchableOpacity, Text} from 'react-native';
-import {connect} from 'react-redux';
+import AsyncStorage from '@react-native-community/async-storage';
+import React, { Component } from 'react';
+import {
+  RefreshControl,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
+import { connect } from 'react-redux';
 import style from '../../additional/style';
 import * as action from '../../redux/action';
 import Climate from './components/data/climate';
@@ -9,30 +15,32 @@ import Voltage from './components/data/voltage';
 import Flowchart from './components/flowchart/flowchart';
 import LastUpdate from './components/lastUpdate';
 import Power from './components/power';
-import AsyncStorage from '@react-native-community/async-storage';
 
 const ROOT_STYLE = style.home;
 const S_SCROLL_VIEW = ROOT_STYLE.scrollView;
 
 class Home extends Component {
+  // when component already mounted, executing loadData function
   componentDidMount() {
     this.loadData();
   }
-  constructor(props) {
-    super(props);
-  }
 
+  // loadData function used to load the userId props that store on redux
   loadData = () => {
-    this.props.loadData({userId: this.props.userId});
+    this.props.loadData({ userId: this.props.userId });
   };
 
+  // render the MainApp display
   render() {
     return (
+      // Scrollview used to control the refresh method
       <ScrollView
         style={S_SCROLL_VIEW}
         refreshControl={
           <RefreshControl
+            // getting the loading props from redux that wait the redux-thunk to finish
             refreshing={this.props.isLoading}
+            // when the refresh control swipped down, execute the loadData function
             onRefresh={() => this.loadData()}
           />
         }>
@@ -43,7 +51,7 @@ class Home extends Component {
         <Climate />
         <Location />
         <TouchableOpacity
-          style={{backgroundColor: 'pink', height: 50, width: 130}}
+          style={{ backgroundColor: 'pink', height: 50, width: 130 }}
           onPress={() => {
             this.storeData();
           }}>
@@ -55,13 +63,14 @@ class Home extends Component {
   storeData = async () => {
     try {
       await AsyncStorage.setItem('USER_ID', '0');
-      this.props.setUserId({userId: '0'});
+      this.props.setUserId({ userId: '0' });
     } catch (e) {
       alert(e);
     }
   };
 }
 
+//  basic function to use userId redux props in this page
 function mapStateToProps(state) {
   return {
     allData: state.allData,
@@ -70,11 +79,13 @@ function mapStateToProps(state) {
   };
 }
 
+//  basic function to use setUserId redux action in this page
 function mapDispatchToProps(dispatch) {
   return {
-    loadData: ({userId}) => dispatch(action.loadData({userId})),
-    setUserId: ({userId}) => dispatch(action.setUserId({userId})),
+    loadData: ({ userId }) => dispatch(action.loadData({ userId })),
+    setUserId: ({ userId }) => dispatch(action.setUserId({ userId })),
   };
 }
 
+//  connecting the map function with redux to this page
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

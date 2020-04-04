@@ -8,11 +8,15 @@ import Login from '../Login/login';
 import MainApp from '../MainApp/mainApp';
 
 class Splash extends Component {
+  /* Constructor get USER_ID data from Async Storage
+    to restore latest login status for the first time app started*/
   constructor(props) {
     super(props);
     this.getData();
   }
 
+  /*  getData async function used to get USER_ID data then the data
+      to redux userId props */
   getData = async () => {
     try {
       const value = await AsyncStorage.getItem('USER_ID');
@@ -27,6 +31,10 @@ class Splash extends Component {
     }
   };
 
+  /*  authHandler function used to display which screen should be
+      displayed to user based on userId redux props.
+      When the state is in async function and not getting data
+      yet, display the loading screen instate of MainApp or Login screen */
   authHandler = () => {
     if (this.props.userId !== null) {
       if (this.props.userId !== '0') {
@@ -39,6 +47,7 @@ class Splash extends Component {
     }
   };
 
+  /*  Loading function return View display to show the loading screen */
   Loading = () => {
     return (
       <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
@@ -48,21 +57,26 @@ class Splash extends Component {
     );
   };
 
+  /*  render the display based on authHandler functiom wraped with Navigation
+      Container which is contain the MainApp that have BottomTabNavigatior */
   render() {
     return <NavigationContainer>{this.authHandler()}</NavigationContainer>;
   }
 }
 
+//  basic function to use userId redux props in this page
 function mapStateToProps(state) {
   return {
     userId: state.userId,
   };
 }
 
+//  basic function to use setUserId redux action in this page
 function mapDispatchToProps(dispatch) {
   return {
     setUserId: ({ userId }) => dispatch(action.setUserId({ userId })),
   };
 }
 
+//  connecting the map function with redux to this page
 export default connect(mapStateToProps, mapDispatchToProps)(Splash);

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Image,
   ScrollView,
@@ -7,16 +7,12 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import MapView, {Marker} from 'react-native-maps';
-import {connect} from 'react-redux';
+import MapView, { Marker } from 'react-native-maps';
+import { connect } from 'react-redux';
 import * as action from '../../redux/action';
 
 class Maps extends Component {
-  componentDidMount() {
-    console.log('cdm');
-    console.log(JSON.stringify(this.props.allData, null, 1));
-  }
-
+  /*  render the View of the Maps function to be displayed to user */
   render() {
     return (
       <View style={styles.container}>
@@ -59,7 +55,7 @@ class Maps extends Component {
                 activeOpacity={0.1}
                 onPress={() => {
                   console.log(marker.index);
-                  this.props.setIndex({index: marker.index});
+                  this.props.setIndex({ index: marker.index });
                 }}>
                 <View
                   style={{
@@ -84,21 +80,21 @@ class Maps extends Component {
                     }}
                   />
                   <View>
-                    <Text style={{fontWeight: 'bold'}}>{marker.name}</Text>
-                    <View style={{flexDirection: 'row'}}>
+                    <Text style={{ fontWeight: 'bold' }}>{marker.name}</Text>
+                    <View style={{ flexDirection: 'row' }}>
                       <Text>{marker.v_tot}</Text>
-                      <Text style={{marginRight: 16}}> V</Text>
+                      <Text style={{ marginRight: 16 }}> V</Text>
                       <Text>{marker.c}</Text>
-                      <Text style={{marginRight: 16}}> A</Text>
+                      <Text style={{ marginRight: 16 }}> A</Text>
                     </View>
-                    <View style={{flexDirection: 'row'}}>
+                    <View style={{ flexDirection: 'row' }}>
                       <Text>
                         {(marker.v_tot > 13.4
                           ? 100
                           : (marker.v_tot / 13.4) * 100
                         ).toFixed(0)}
                       </Text>
-                      <Text style={{marginRight: 16}}> %</Text>
+                      <Text style={{ marginRight: 16 }}> %</Text>
                     </View>
                   </View>
                 </View>
@@ -120,7 +116,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setIndex: ({index}) => dispatch(action.setIndex({index})),
+    setIndex: ({ index }) => dispatch(action.setIndex({ index })),
   };
 }
 
