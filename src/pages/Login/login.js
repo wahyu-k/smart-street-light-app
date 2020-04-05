@@ -1,5 +1,4 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import axios from 'axios';
 import React, { Component } from 'react';
 import {
   ActivityIndicator,
@@ -29,22 +28,32 @@ class Login extends Component {
       <View style={{ flex: 1 }}>
         <ActivityIndicator
           style={{ ...StyleSheet.absoluteFillObject, position: 'absolute' }}
-          size="large"
-          color="#b71c1c"
+          size={50}
+          color="#81AD2F"
           animating={this.props.isLoading}
         />
         <View style={{ flex: 1 }}>
-          <StatusBar backgroundColor="#b71c1c" barStyle="light-content" />
+          <StatusBar backgroundColor="#FFF" barStyle="dark-content" />
           <View
             style={{
               flex: 1,
-              justifyContent: 'center',
+              justifyContent: 'flex-start',
               alignItems: 'center',
+              marginBottom: 80,
             }}>
             <Image
-              source={require('../../assets/img/logoBatex.png')}
+              source={require('../../assets/img/undraw_login.png')}
               style={{
-                height: 75,
+                height: '100%',
+                width: '100%',
+                resizeMode: 'contain',
+                marginBottom: 12,
+              }}
+            />
+            <Image
+              source={require('../../assets/img/logoLectro.png')}
+              style={{
+                height: '20%',
                 resizeMode: 'contain',
                 width: '100%',
               }}
@@ -52,10 +61,10 @@ class Login extends Component {
           </View>
           <View
             style={{
-              margin: 16,
-              flex: 1,
+              marginHorizontal: 16,
+              flex: 2,
               alignItems: 'flex-start',
-              justifyContent: 'center',
+              justifyContent: 'flex-start',
             }}>
             <Text
               style={{ fontSize: 24, fontWeight: 'bold', marginBottom: 10 }}>
@@ -75,7 +84,7 @@ class Login extends Component {
             <TouchableOpacity
               style={{
                 marginTop: 10,
-                backgroundColor: '#b71c1c',
+                backgroundColor: '#81AD2F',
                 padding: 10,
                 borderRadius: 15,
                 flexDirection: 'row',
@@ -92,7 +101,7 @@ class Login extends Component {
             <TouchableOpacity
               style={{
                 marginTop: 10,
-                backgroundColor: '#b71c1c',
+                backgroundColor: '#81AD2F',
                 padding: 10,
                 borderRadius: 15,
                 flexDirection: 'row',
@@ -109,13 +118,13 @@ class Login extends Component {
           </View>
           <View
             style={{
-              flex: 1,
+              bottom: 0,
               alignItems: 'center',
               justifyContent: 'flex-end',
               marginBottom: 20,
             }}>
-            <Text style={{ color: '#606060' }}>Version 1.0.11</Text>
-            <Text style={{ color: '#606060' }}>by Batex Energy 2020</Text>
+            <Text style={{ color: '#606060' }}>Version alpha</Text>
+            <Text style={{ color: '#606060' }}>by Lectro Battery 2020</Text>
           </View>
         </View>
       </View>

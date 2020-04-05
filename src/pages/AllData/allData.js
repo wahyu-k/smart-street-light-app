@@ -47,7 +47,7 @@ class AllData extends Component {
               height: '100%',
               width: '100%',
             }}
-            color="#BF0101"
+            color="#81AD2F"
             size={60}
           />
         )}

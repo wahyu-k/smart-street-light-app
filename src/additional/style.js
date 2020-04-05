@@ -52,7 +52,7 @@ export default {
           marginVertical: 12,
         },
         fill: {
-          backgroundColor: '#80e0e0',
+          backgroundColor: '#A4EC69',
           position: 'absolute',
           borderRadius: 6,
           height: '100%',

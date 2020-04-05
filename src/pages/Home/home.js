@@ -28,7 +28,6 @@ class Home extends Component {
   // loadData function used to load the userId props that store on redux
   loadData = () => {
     this.props.loadData({ userId: this.props.userId });
-    console.log('homeusid: ' + this.props.userId);
   };
 
   // render the MainApp display
@@ -51,27 +50,12 @@ class Home extends Component {
         <Voltage />
         <Climate />
         <Location />
-        <TouchableOpacity
-          style={{ backgroundColor: 'pink', height: 50, width: 130 }}
-          onPress={() => {
-            this.storeData();
-          }}>
-          <Text>LOGOUT</Text>
-        </TouchableOpacity>
       </ScrollView>
     );
   }
-  storeData = async () => {
-    try {
-      await AsyncStorage.setItem('USER_ID', '0');
-      this.props.setLoginData({ loginData: { userId: '0' } });
-    } catch (e) {
-      alert(e);
-    }
-  };
 }
 
-//  basic function to use userId redux props in this page
+//  basic function to use redux props in this page
 function mapStateToProps(state) {
   return {
     allData: state.allData,
@@ -80,7 +64,7 @@ function mapStateToProps(state) {
   };
 }
 
-//  basic function to use setUserId redux action in this page
+//  basic function to use redux action in this page
 function mapDispatchToProps(dispatch) {
   return {
     loadData: ({ userId }) => dispatch(action.loadData({ userId })),

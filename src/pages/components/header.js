@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Text, View} from 'react-native';
+import React, { Component } from 'react';
+import { Text, View, Image } from 'react-native';
 
 class Header extends Component {
   render() {
@@ -7,13 +7,18 @@ class Header extends Component {
       <View
         style={{
           height: 50,
-          backgroundColor: '#b71c1c',
+          backgroundColor: '#FFF',
           justifyContent: 'center',
           alignItems: 'center',
+          elevation: 5,
         }}>
-        <Text style={{color: 'white', fontWeight: 'bold', fontSize: 18}}>
+        {/* <Text style={{color: 'white', fontWeight: 'bold', fontSize: 18}}>
           BATEX energy
-        </Text>
+        </Text> */}
+        <Image
+          source={require('../../assets/img/logoLectro.png')}
+          style={{ height: '40%', width: '33%', resizeMode:'center' }}
+        />
       </View>
     );
   }

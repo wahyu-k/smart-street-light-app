@@ -47,7 +47,7 @@ class Maps extends Component {
   }
 }
 
-//  basic function to use userId redux props in this page
+//  basic function to use redux props in this page
 function mapStateToProps(state) {
   return {
     allData: state.allData,
@@ -55,7 +55,7 @@ function mapStateToProps(state) {
   };
 }
 
-//  basic function to use setUserId redux action in this page
+//  basic function to use redux action in this page
 function mapDispatchToProps(dispatch) {
   return {
     setIndex: ({ index }) => dispatch(action.setIndex({ index })),

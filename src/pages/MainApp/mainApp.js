@@ -23,7 +23,7 @@ class MainApp extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <StatusBar backgroundColor="#b71c1c" barStyle="light-content" />
+        <StatusBar backgroundColor="#FFF" barStyle="dark-content" />
         <Header />
         <Tab.Navigator
           backBehavior={'none'}
@@ -48,7 +48,7 @@ class MainApp extends Component {
             },
           })}
           tabBarOptions={{
-            activeTintColor: '#b71c1c',
+            activeTintColor: '#81AD2F',
             inactiveTintColor: 'gray',
           }}>
           <Tab.Screen name="Home" component={Home} />
