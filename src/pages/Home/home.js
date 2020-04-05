@@ -28,6 +28,7 @@ class Home extends Component {
   // loadData function used to load the userId props that store on redux
   loadData = () => {
     this.props.loadData({ userId: this.props.userId });
+    console.log('homeusid: ' + this.props.userId);
   };
 
   // render the MainApp display
@@ -63,7 +64,7 @@ class Home extends Component {
   storeData = async () => {
     try {
       await AsyncStorage.setItem('USER_ID', '0');
-      this.props.setUserId({ userId: '0' });
+      this.props.setLoginData({ loginData: { userId: '0' } });
     } catch (e) {
       alert(e);
     }
@@ -75,7 +76,7 @@ function mapStateToProps(state) {
   return {
     allData: state.allData,
     isLoading: state.isLoading,
-    userId: state.userId,
+    userId: state.loginData.userId,
   };
 }
 
@@ -83,7 +84,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     loadData: ({ userId }) => dispatch(action.loadData({ userId })),
-    setUserId: ({ userId }) => dispatch(action.setUserId({ userId })),
+    setLoginData: ({ loginData }) =>
+      dispatch(action.setLoginData({ loginData })),
   };
 }
 

@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   ActivityIndicator,
   Image,
@@ -9,12 +9,11 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  ToastAndroid,
   TouchableOpacity,
   View,
 } from 'react-native';
-import {Icon} from 'react-native-elements';
-import {connect} from 'react-redux';
+import { Icon } from 'react-native-elements';
+import { connect } from 'react-redux';
 import * as action from '../../redux/action';
 
 class Login extends Component {
@@ -23,19 +22,18 @@ class Login extends Component {
     this.state = {
       username: '',
       password: '',
-      isLoading: false,
     };
   }
   render() {
     return (
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <ActivityIndicator
-          style={{...StyleSheet.absoluteFillObject, position: 'absolute'}}
+          style={{ ...StyleSheet.absoluteFillObject, position: 'absolute' }}
           size="large"
           color="#b71c1c"
-          animating={this.state.isLoading}
+          animating={this.props.isLoading}
         />
-        <View style={{flex: 1}}>
+        <View style={{ flex: 1 }}>
           <StatusBar backgroundColor="#b71c1c" barStyle="light-content" />
           <View
             style={{
@@ -59,19 +57,20 @@ class Login extends Component {
               alignItems: 'flex-start',
               justifyContent: 'center',
             }}>
-            <Text style={{fontSize: 24, fontWeight: 'bold', marginBottom: 10}}>
+            <Text
+              style={{ fontSize: 24, fontWeight: 'bold', marginBottom: 10 }}>
               First, you must sign in...
             </Text>
             <TextInput
               placeholder="Username"
-              style={{fontSize: 16, width: '100%'}}
-              onChangeText={value => this.setState({username: value})}
+              style={{ fontSize: 16, width: '100%' }}
+              onChangeText={(value) => this.setState({ username: value })}
             />
             <TextInput
               placeholder="Password"
-              style={{fontSize: 16, width: '100%'}}
+              style={{ fontSize: 16, width: '100%' }}
               secureTextEntry
-              onChangeText={value => this.setState({password: value})}
+              onChangeText={(value) => this.setState({ password: value })}
             />
             <TouchableOpacity
               style={{
@@ -88,7 +87,7 @@ class Login extends Component {
                 this.loginHandler(this.state.username, this.state.password);
               }}>
               <Icon name="lock-open" color="white" />
-              <Text style={{color: 'white', marginLeft: 8}}>Login</Text>
+              <Text style={{ color: 'white', marginLeft: 8 }}>Login</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={{
@@ -105,7 +104,7 @@ class Login extends Component {
                 this.loginHandler('demo', 'demo123');
               }}>
               <Icon name="tv" color="white" />
-              <Text style={{color: 'white', marginLeft: 8}}>Demo</Text>
+              <Text style={{ color: 'white', marginLeft: 8 }}>Demo</Text>
             </TouchableOpacity>
           </View>
           <View
@@ -115,8 +114,8 @@ class Login extends Component {
               justifyContent: 'flex-end',
               marginBottom: 20,
             }}>
-            <Text style={{color: '#606060'}}>Version 1.0.11</Text>
-            <Text style={{color: '#606060'}}>by Batex Energy 2020</Text>
+            <Text style={{ color: '#606060' }}>Version 1.0.11</Text>
+            <Text style={{ color: '#606060' }}>by Batex Energy 2020</Text>
           </View>
         </View>
       </View>
@@ -131,26 +130,6 @@ class Login extends Component {
     }
   };
 
-  storeData = async userId => {
-    try {
-      await AsyncStorage.setItem('USER_ID', userId);
-      this.props.setUserId({userId: userId});
-    } catch (e) {
-      alert(e);
-    }
-  };
-
-  responseHandler = res => {
-    console.log(JSON.stringify(res.data, null, 1));
-    this.setState({isLoading: false});
-    if (res.data.value === 0) {
-      alert('Wrong username or password');
-    } else {
-      console.log('welcome');
-      this.storeData(res.data.userId);
-    }
-  };
-
   checkIsEmpty = (username, password) => {
     if (username === '' || password === '') {
       return true;
@@ -159,24 +138,46 @@ class Login extends Component {
     }
   };
 
-  checkLogin = (username, password) => {
-    this.setState({isLoading: true});
-    var body = new FormData();
-    body.append('username', username);
-    body.append('pass', password);
-    axios
-      .post(`http://iot.arduinosolo.com/login.php`, body)
-      .then(res => {
-        this.responseHandler(res);
-      })
-      .catch(err => alert(err));
+  storeData = async (userId) => {
+    try {
+      await AsyncStorage.setItem('USER_ID', userId);
+      this.props.setLoginData({ loginData: { userId: userId } });
+    } catch (e) {
+      alert(e);
+    }
+  };
+
+  async checkLogin(username, password) {
+    try {
+      const res = await this.props.loadLoginData({
+        body: {
+          username: username,
+          password: password,
+        },
+      });
+      if (res.userId === '0') {
+        alert('Wrong username or password');
+      } else {
+        this.storeData(res.userId);
+      }
+    } catch (e) {
+      console.warn(e);
+    }
+  }
+}
+
+function mapStateToProps(state) {
+  return {
+    isLoading: state.isLoading,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    setUserId: ({userId}) => dispatch(action.setUserId({userId})),
+    setLoginData: ({ loginData }) =>
+      dispatch(action.setLoginData({ loginData })),
+    loadLoginData: ({ body }) => dispatch(action.loadLoginData({ body })),
   };
 }
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

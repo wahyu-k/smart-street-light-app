@@ -1,47 +1,50 @@
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {NavigationContainer} from '@react-navigation/native';
-import React, {Component} from 'react';
-import {StatusBar, View} from 'react-native';
-import {default as Icon} from 'react-native-vector-icons/FontAwesome';
-import {Provider} from 'react-redux';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import React, { Component } from 'react';
+import { StatusBar, View } from 'react-native';
+import { default as Icon } from 'react-native-vector-icons/FontAwesome';
+import icon from '../../additional/icon';
 import AllData from '../AllData/allData';
+import Header from '../components/header';
 import Home from '../Home/home';
 import Info from '../Info/info';
 import Maps from '../Maps/maps';
-import store from '../../redux/store';
-import Header from '../components/header';
-const Tab = createBottomTabNavigator();
 
+const Tab = createBottomTabNavigator();
+const ROOT_ICON = icon.mainApp;
+const I_HOME = ROOT_ICON.bottomTab.home;
+const I_MAPS = ROOT_ICON.bottomTab.maps;
+const I_DATA = ROOT_ICON.bottomTab.data;
+const I_INFO = ROOT_ICON.bottomTab.info;
+
+/**display the mainapp with costumizing statusbar color
+ * custom header, and tabnavigator
+ */
 class MainApp extends Component {
   render() {
     return (
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <StatusBar backgroundColor="#b71c1c" barStyle="light-content" />
         <Header />
         <Tab.Navigator
           backBehavior={'none'}
-          screenOptions={({route}) => ({
-            tabBarIcon: ({focused, color, size}) => {
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ color }) => {
               let iconName;
               switch (route.name) {
-                case 'Maps':
-                  iconName = 'map-marker';
-                  focused ? (size = size + 4) : (size = size);
-                  break;
                 case 'Home':
-                  iconName = 'home';
-                  focused ? (size = size + 4) : (size = size);
+                  iconName = I_HOME;
+                  break;
+                case 'Maps':
+                  iconName = I_MAPS;
                   break;
                 case 'Data':
-                  iconName = 'table';
-                  focused ? (size = size + 4) : (size = size);
+                  iconName = I_DATA;
                   break;
                 case 'Info':
-                  iconName = 'info-circle';
-                  focused ? (size = size + 4) : (size = size);
+                  iconName = I_INFO;
                   break;
               }
-              return <Icon name={iconName} color={color} size={size} />;
+              return <Icon name={iconName} color={color} size={24} />;
             },
           })}
           tabBarOptions={{

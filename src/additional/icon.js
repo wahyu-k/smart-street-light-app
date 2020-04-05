@@ -9,6 +9,14 @@
  */
 
 export default {
+  mainApp: {
+    bottomTab: {
+      home: 'home',
+      maps: 'map-marker',
+      data: 'table',
+      info: 'info-circle',
+    },
+  },
   home: {
     data: {
       climate: 'cloud',

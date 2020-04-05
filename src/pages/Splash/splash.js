@@ -20,11 +20,11 @@ class Splash extends Component {
   getData = async () => {
     try {
       const value = await AsyncStorage.getItem('USER_ID');
-      console.log(value);
+      console.log('asstore' + value);
       if (value !== null) {
-        this.props.setUserId({ userId: value });
+        this.props.setLoginData({ loginData: { userId: value } });
       } else {
-        this.props.setUserId({ userId: '0' });
+        this.props.setLoginData({ loginData: { userId: '0' } });
       }
     } catch (e) {
       alert(e);
@@ -67,14 +67,15 @@ class Splash extends Component {
 //  basic function to use userId redux props in this page
 function mapStateToProps(state) {
   return {
-    userId: state.userId,
+    userId: state.loginData.userId,
   };
 }
 
 //  basic function to use setUserId redux action in this page
 function mapDispatchToProps(dispatch) {
   return {
-    setUserId: ({ userId }) => dispatch(action.setUserId({ userId })),
+    setLoginData: ({ loginData }) =>
+      dispatch(action.setLoginData({ loginData })),
   };
 }
 
