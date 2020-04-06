@@ -6,7 +6,9 @@ import { connect } from 'react-redux';
 import * as action from '../../redux/action';
 import Login from '../Login/login';
 import MainApp from '../MainApp/mainApp';
+import color from '../../additional/color';
 
+const ROOT_COLOR = color;
 class Splash extends Component {
   /* Constructor get USER_ID data from Async Storage
     to restore latest login status for the first time app started*/
@@ -50,7 +52,7 @@ class Splash extends Component {
   Loading = () => {
     return (
       <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-        <ActivityIndicator size={50} color="#81AD2F" />
+        <ActivityIndicator size={50} color={ROOT_COLOR.mainColor} />
         <Text style={{ marginTop: 8 }}>Wait a second...</Text>
       </View>
     );

@@ -19,7 +19,6 @@ let initialState = {
   ],
   index: 0,
   isLoading: false,
-  userId: null,
   loginData: {
     userId: null,
   },

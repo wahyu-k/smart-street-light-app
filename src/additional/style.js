@@ -8,7 +8,95 @@
  *    ^ this S stand for STYLE
  */
 
+import color from './color';
+import { StyleSheet } from 'react-native';
+
 export default {
+  login: {
+    view: {
+      flex: 1,
+    },
+    indicator: {
+      ...StyleSheet.absoluteFillObject,
+      position: 'absolute',
+    },
+    header: {
+      view: {
+        flex: 1,
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        marginBottom: 80,
+      },
+      img1: {
+        height: '100%',
+        width: '100%',
+        resizeMode: 'contain',
+        marginBottom: 12,
+      },
+      img2: {
+        height: '20%',
+        resizeMode: 'contain',
+        width: '100%',
+      },
+    },
+    main: {
+      view: {
+        marginHorizontal: 16,
+        flex: 2,
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start',
+      },
+      title: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 10,
+      },
+      input: {
+        fontSize: 16,
+        width: '100%',
+      },
+      button: {
+        view: {
+          marginTop: 10,
+          backgroundColor: color.mainColor,
+          padding: 10,
+          borderRadius: 15,
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+        },
+        text: {
+          color: 'white',
+          marginLeft: 8,
+        },
+      },
+    },
+    footer: {
+      view: {
+        bottom: 0,
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        marginBottom: 20,
+      },
+      text: {
+        color: 'grey',
+      },
+    },
+  },
+  header: {
+    view: {
+      height: 50,
+      backgroundColor: 'white',
+      justifyContent: 'center',
+      alignItems: 'center',
+      elevation: 5,
+    },
+    image: {
+      height: '40%',
+      width: '33%',
+      resizeMode: 'center',
+    },
+  },
   home: {
     lastUpdate: {
       view: {
@@ -52,7 +140,7 @@ export default {
           marginVertical: 12,
         },
         fill: {
-          backgroundColor: '#A4EC69',
+          backgroundColor: color.batteryColor,
           position: 'absolute',
           borderRadius: 6,
           height: '100%',
@@ -166,6 +254,39 @@ export default {
         title: {
           fontWeight: 'bold',
         },
+      },
+    },
+  },
+  allData: {
+    view: {
+      flex: 1,
+    },
+    indicator: {
+      position: 'absolute',
+      height: '100%',
+      width: '100%',
+    },
+  },
+  info: {
+    view: {
+      backgroundColor: 'white',
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    main: {
+      img: {
+        height: 250,
+        width: 270,
+      },
+      button: {
+        marginTop: 10,
+        backgroundColor: color.mainColor,
+        padding: 10,
+        borderRadius: 15,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
       },
     },
   },

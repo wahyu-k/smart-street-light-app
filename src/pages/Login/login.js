@@ -2,10 +2,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 import React, { Component } from 'react';
 import {
   ActivityIndicator,
-  Image,
   Keyboard,
   StatusBar,
-  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
@@ -13,7 +11,21 @@ import {
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
+import color from '../../additional/color';
+import style from '../../additional/style';
 import * as action from '../../redux/action';
+import Header from './components/header';
+import Footer from './components/footer';
+
+const ROOT_COLOR = color;
+const ROOT_STYLE = style.login;
+const S_VIEW = ROOT_STYLE.view;
+const S_INDICATOR = ROOT_STYLE.indicator;
+const S_MAIN_VIEW = ROOT_STYLE.main.view;
+const S_MAIN_TITLE = ROOT_STYLE.main.title;
+const S_MAIN_INPUT = ROOT_STYLE.main.input;
+const S_MAIN_BUTTON_VIEW = ROOT_STYLE.main.button.view;
+const S_MAIN_BUTTON_TEXT = ROOT_STYLE.main.button.text;
 
 class Login extends Component {
   constructor(props) {
@@ -23,109 +35,52 @@ class Login extends Component {
       password: '',
     };
   }
+
   render() {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={S_VIEW}>
         <ActivityIndicator
-          style={{ ...StyleSheet.absoluteFillObject, position: 'absolute' }}
+          style={S_INDICATOR}
           size={50}
-          color="#81AD2F"
+          color={ROOT_COLOR.mainColor}
           animating={this.props.isLoading}
         />
-        <View style={{ flex: 1 }}>
-          <StatusBar backgroundColor="#FFF" barStyle="dark-content" />
-          <View
-            style={{
-              flex: 1,
-              justifyContent: 'flex-start',
-              alignItems: 'center',
-              marginBottom: 80,
-            }}>
-            <Image
-              source={require('../../assets/img/undraw_login.png')}
-              style={{
-                height: '100%',
-                width: '100%',
-                resizeMode: 'contain',
-                marginBottom: 12,
-              }}
-            />
-            <Image
-              source={require('../../assets/img/logoLectro.png')}
-              style={{
-                height: '20%',
-                resizeMode: 'contain',
-                width: '100%',
-              }}
-            />
-          </View>
-          <View
-            style={{
-              marginHorizontal: 16,
-              flex: 2,
-              alignItems: 'flex-start',
-              justifyContent: 'flex-start',
-            }}>
-            <Text
-              style={{ fontSize: 24, fontWeight: 'bold', marginBottom: 10 }}>
-              First, you must sign in...
-            </Text>
+        <View style={S_VIEW}>
+          <StatusBar backgroundColor="white" barStyle="dark-content" />
+          <Header />
+          <View style={S_MAIN_VIEW}>
+            <Text style={S_MAIN_TITLE}>First, you must sign in...</Text>
             <TextInput
               placeholder="Username"
-              style={{ fontSize: 16, width: '100%' }}
+              style={S_MAIN_INPUT}
               onChangeText={(value) => this.setState({ username: value })}
             />
             <TextInput
               placeholder="Password"
-              style={{ fontSize: 16, width: '100%' }}
+              style={S_MAIN_INPUT}
               secureTextEntry
               onChangeText={(value) => this.setState({ password: value })}
             />
             <TouchableOpacity
-              style={{
-                marginTop: 10,
-                backgroundColor: '#81AD2F',
-                padding: 10,
-                borderRadius: 15,
-                flexDirection: 'row',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
+              style={S_MAIN_BUTTON_VIEW}
               onPress={() => {
                 Keyboard.dismiss();
                 this.loginHandler(this.state.username, this.state.password);
               }}>
               <Icon name="lock-open" color="white" />
-              <Text style={{ color: 'white', marginLeft: 8 }}>Login</Text>
+              <Text style={S_MAIN_BUTTON_TEXT}>Login</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={{
-                marginTop: 10,
-                backgroundColor: '#81AD2F',
-                padding: 10,
-                borderRadius: 15,
-                flexDirection: 'row',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
+              style={S_MAIN_BUTTON_VIEW}
               onPress={() => {
                 Keyboard.dismiss();
                 this.loginHandler('demo', 'demo123');
               }}>
               <Icon name="tv" color="white" />
-              <Text style={{ color: 'white', marginLeft: 8 }}>Demo</Text>
+              <Text style={S_MAIN_BUTTON_TEXT}>Demo</Text>
             </TouchableOpacity>
           </View>
-          <View
-            style={{
-              bottom: 0,
-              alignItems: 'center',
-              justifyContent: 'flex-end',
-              marginBottom: 20,
-            }}>
-            <Text style={{ color: '#606060' }}>Version alpha</Text>
-            <Text style={{ color: '#606060' }}>by Lectro Battery 2020</Text>
-          </View>
+          <Footer />
         </View>
       </View>
     );

@@ -1,9 +1,15 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { Component } from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
+import style from '../../additional/style';
 import * as action from '../../redux/action';
+
+const ROOT_STYLE = style.info;
+const S_VIEW = ROOT_STYLE.view;
+const S_MAIN_IMG = ROOT_STYLE.main.img;
+const S_MAIN_BUTTON = ROOT_STYLE.main.button;
 
 class Info extends Component {
   storeData = async () => {
@@ -16,23 +22,15 @@ class Info extends Component {
   };
   render() {
     return (
-      <View style={styles.container}>
+      <View style={S_VIEW}>
         <Image
           source={require('../../assets/img/undraw_user.png')}
           resizeMode="cover"
-          style={{ height: 250, width: 270 }}
+          style={S_MAIN_IMG}
         />
         {/* <Text>Info Page</Text> */}
         <TouchableOpacity
-          style={{
-            marginTop: 10,
-            backgroundColor: '#81AD2F',
-            padding: 10,
-            borderRadius: 15,
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
+          style={S_MAIN_BUTTON}
           onPress={() => {
             this.storeData();
           }}>
@@ -53,12 +51,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(null, mapDispatchToProps)(Info);
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'white',
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

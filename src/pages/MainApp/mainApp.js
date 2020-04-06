@@ -8,8 +8,11 @@ import Header from '../components/header';
 import Home from '../Home/home';
 import Info from '../Info/info';
 import Maps from '../Maps/maps';
+import color from '../../additional/color';
 
 const Tab = createBottomTabNavigator();
+
+const ROOT_COLOR = color;
 const ROOT_ICON = icon.mainApp;
 const I_HOME = ROOT_ICON.bottomTab.home;
 const I_MAPS = ROOT_ICON.bottomTab.maps;
@@ -48,7 +51,7 @@ class MainApp extends Component {
             },
           })}
           tabBarOptions={{
-            activeTintColor: '#81AD2F',
+            activeTintColor: ROOT_COLOR.mainColor,
             inactiveTintColor: 'gray',
           }}>
           <Tab.Screen name="Home" component={Home} />
