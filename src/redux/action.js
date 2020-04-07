@@ -5,7 +5,7 @@ export const loadData = (req) => {
     dispatch({ type: 'LOAD_DATA_START' });
     axios
       .get(
-        `http://iot.arduinosolo.com/get_based_user.php?user_id=${req.userId}`,
+        `https://iot.arduinosolo.com/get_based_user.php?user_id=${req.userId}`,
         { timeout: 10000 },
       )
       .then((response) => {
@@ -28,7 +28,7 @@ export const loadLoginData = ({ body }) => {
     formData.append('pass', body.password);
     dispatch({ type: 'LOAD_DATA_START' });
     return axios
-      .post(`http://iot.arduinosolo.com/login_new.php`, formData, {
+      .post(`https://iot.arduinosolo.com/login_new.php`, formData, {
         timeout: 10000,
       })
       .then((response) => {
